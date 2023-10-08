@@ -38,8 +38,8 @@ export async function validateForm(ref) {
 export function getRouteName(route) {
   let theRoute = {
     agenda: {
-      parent: 'agenda',
-      name: 'agenda',
+      parent: 'Agenda',
+      name: 'Agenda',
       path: 'agenda',
       childrenName: 'Cadastro de Agenda',
       childrenPath: 'agendaNew',

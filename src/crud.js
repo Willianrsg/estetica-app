@@ -3,7 +3,7 @@ const { baseApiUrl } = require('./global')
 
 const get = async (route, params = {}) => {
   let url = `${baseApiUrl}/${route}`
-
+  console.log(url);
   axios.defaults.withCredentials = true
 
   const result = await axios
@@ -37,26 +37,26 @@ const getById = async (route, id) => {
   return result
 }
 
-const search = async () => {
-  return console.log('pesquisa')
-}
-
-// const search = async (route, objectParams) => {
-//   let url = `${baseApiUrl}/${route}`
-
-//   axios.defaults.withCredentials = true
-
-//   const result = await axios
-//     .get(url, { params: objectParams })
-//     .then((res) => {
-//       return res.data
-//     })
-//     .catch((err) => {
-//       console.error(err)
-//       return null
-//     })
-//   return result
+// const search = async () => {
+//   return console.log('pesquisa')
 // }
+
+const search = async (route, objectParams) => {
+  let url = `${baseApiUrl}/${route}`
+
+  axios.defaults.withCredentials = true
+
+  const result = await axios
+    .get(url, { params: objectParams })
+    .then((res) => {
+      return res.data
+    })
+    .catch((err) => {
+      console.error(err)
+      return null
+    })
+  return result
+}
 
 const insert = async (route, object) => {
   axios.defaults.withCredentials = true
