@@ -3,7 +3,6 @@
         <div class="row">
         <div class="col-8">
             <s-title title="Clientes" :breadcrumb="true" icon="bi bi-peoplebi bi-people-fill" />
-            <!-- <s-title title="Clientes" /> -->
         </div>
         </div>
         <s-input-filter
@@ -45,10 +44,18 @@
                                 ></i>
                             </s-tooltip>
                         </div>
+                        <div class="text-center" v-if="zoom">
+                            <s-button
+                                type="button"
+                                color="primary btn-sm"
+                                label="Selecionar"
+                                @click=";(selectedItem = item), emitSelectedItem(item)"
+                            />
+                        </div>
                     </template>
                 </s-table>
             </div>
-            <div class="col-12" v-if="!loader">
+            <div class="col-12" v-if="!loader && !zoom">
             <s-button
                 type="button"
                 label="Novo"
@@ -68,60 +75,62 @@
     <script>
     import { logout } from '@/rule/functions.js'
     import { get, remove, search } from '@/crud.js'
-    import { Modal } from 'bootstrap'
+    // import { Modal } from 'bootstrap'
     
     export default {
-    name: 'veiculos',
+        name: 'veiculos',
     
-    data: () => ({
-        route: 'vehicles',
-        headers: [
-            { title: 'Nome', field: 'name' },
-            { title: 'Contato', field: 'phone' },
-            // { title: 'Ordem', field: 'order' },
-            { title: 'Ações', field: 'actions' },
-        ],
-        items: [
-            {name: 'Willian', phone: '(44) 9 9999-9999'},
-            {name: 'Fulano', phone: '(45) 9 8888-8888'},
-            {name: 'Sicrano', phone: '(44) 9 5555-5555'},
-            {name: 'Rafael', phone: '(44) 9 9876-1234'},
-        ],
-        object: null,
-        Modal: null,
-        choosed: null,
-        loader: false,
-        modalDelete: null,
-        modalNotLogged: null,
-        pages: null,
-        actualPage: 1,
-        limit: 10,
-    
-        filterObject: [
-            { label: 'Nome', ref: 'name', route: 'client',  param: 'name', type: 'text', index: 1 },
-        ],
-    
-        filterOption: 1,
-        filterParam: null
-    }),
+        data: () => ({
+            route: 'client',
+            headers: [
+                { title: 'Nome', field: 'name' },
+                { title: 'Contato', field: 'phone' },
+                { title: 'Ações', field: 'actions' },
+            ],
+            items: [],
+            object: null,
+            Modal: null,
+            choosed: null,
+            loader: false,
+            modalDelete: null,
+            modalNotLogged: null,
+            pages: null,
+            actualPage: 1,
+            limit: 10,
+        
+            filterObject: [
+                { label: 'Nome', ref: 'name', route: 'client',  param: 'name', type: 'text', index: 1 },
+            ],
+        
+            filterOption: 1,
+            filterParam: null
+        }),
+
+        props: {
+            zoom: {
+                type: Boolean,
+                default: false,
+            },
+            valueZoom: String,
+        },
     
         methods: {
             async loadItems(page = 1) {
-                // if (await this.$checkSession()) {
-                //     const query = { params: { page: page, limit: this.limit } }
-                //     let raw = []
-                //     if (this.filterParam) {
-                //     this.filterParam.params.page = page
-                //     this.filterParam.params.limit = this.limit
-                //     raw = await search(this.filterParam.route, this.filterParam.params)
-                //     } else {
-                //     raw = await get(this.route, query)
-                //     }
-                //     this.items = raw.data
-                //     this.pages = Math.ceil(raw.total / this.limit)
-                // } else {
-                //     this.modalNotLogged.show()
-                // }
+                if (await this.$checkSession()) {
+                    const query = { params: { page: page, limit: this.limit } }
+                    let raw = []
+                    if (this.filterParam) {
+                        this.filterParam.params.page = page
+                        this.filterParam.params.limit = this.limit
+                        raw = await search(this.filterParam.route, this.filterParam.params)
+                    } else {
+                        raw = await get(this.route, query)
+                    }
+                    this.items = raw.data
+                    this.pages = Math.ceil(raw.total / this.limit)
+                } else {
+                    this.modalNotLogged.show()
+                }
             },
     
             async edit(id) {
@@ -157,6 +166,10 @@
                 } else {
                     this.modalNotLogged.show()
                 }
+            },
+
+            emitSelectedItem(item) {
+                this.$emit('selectedItem', item)
             },
     
             handleIndex(event) {
@@ -209,7 +222,7 @@
                 this.loadItems(this.actualPage)
                 },
             },
-        }
+    }
 </script>
     
 <style></style>

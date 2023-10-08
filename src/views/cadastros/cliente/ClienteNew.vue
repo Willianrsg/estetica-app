@@ -26,19 +26,27 @@
                     divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-3"
                     label="CPF/CNPJ"
                     v-mask="['###.###.###-##', '##.###.###/####-##']"
+                    required
                 />
                 <s-input-text
                     v-model="object.zipCode"
                     ref="zipCode"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-2"
                     label="CEP"
-                    v-mask="['#####-###']"                  
+                    v-mask="['#####-###']" 
+                    @input="getCep()"                 
                 />
                 <s-input-text
                     v-model="object.street"
                     ref="street"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-6"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-5"
                     label="Endereço"
+                />
+                <s-input-text
+                    v-model="object.number"
+                    ref="number"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-1"
+                    label="Número"
                 />
                 <s-input-text
                     v-model="object.city"
@@ -94,14 +102,14 @@
         </div>
       </form>
       </div>
-      <s-modal-delete ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
+      <s-modal-error ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
       <s-modal-notlogged ref="modalNotLogged" @confirm="logout" />
     </div>
   </template>
   
   <script>
   import { validateForm, checkSession, logout } from '@/rule/functions'
-  import { insert, search, update } from '@/crud'
+  import { insert, search, update, getCep } from '@/crud'
   import { Modal } from 'bootstrap'
   
 export default {
@@ -123,8 +131,7 @@ export default {
             if (await checkSession()) {
             await search(this.route, { id: id })
                 .then((res) => {
-                this.object = res.data[0]
-                this.object.purchaseValue = parseFloat(this.object.purchaseValue).toFixed(2)
+                    this.object = res.data[0]
                 })
                 .catch((err) => {
                 console.error(err)
@@ -144,7 +151,6 @@ export default {
         async saveAndKeep() {
             if (await checkSession()) {
             if (await validateForm(this.$refs.form)) {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
     
                 const result = await insert(this.route, this.object)
     
@@ -172,8 +178,6 @@ export default {
             if (this.object.id) {
                 this.$cleanObject(this.object)
     
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
                 const result = await update(this.route, this.$route.params.id, this.object)
     
                 if (result.status) {
@@ -191,27 +195,40 @@ export default {
                 this.modalError.show()
                 }
             } else {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
                 const result = await insert(this.route, this.object)
     
                 if (result.status) {
-                if (result.status != '204') {
+                    if (result.status != '204') {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    } else {
+                        this.$store.dispatch('setShowToast', true)
+                        this.$store.dispatch('setToastMessage', 'Cliente criado com sucesso !')
+                        this.$router.back()
+                    }
+                } else {
                     this.modalBody = result.response.data
                     this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Cliente criado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
                 }
             }
             } else {
             this.modalNotLogged.show()
             }
+        },
+
+        async getCep() {
+            alert('ok')
+            // if (this.object.zipCode.length < 8) {
+            //     return
+            // }
+
+            // const cep = this.object.zipCode.replace('-', '')
+
+            // const data = await getCep(cep)
+
+            // this.object.street = data.logradouro
+            // this.object.city = data.localidade
+            // this.object.state = data.uf
         },
   
         logout() {
