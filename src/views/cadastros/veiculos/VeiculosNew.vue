@@ -6,17 +6,21 @@
         <form ref="form" @submit.prevent="submitForm" >
             <div class="row">
                 <s-input-zoom
-                    v-model="object.client"
+                    v-model="object.idClient"
                     ref="client"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-12"
                     label="Cliente"
                     required
-                />
+                >
+                    <template #default>
+                        <Cliente :zoom="true" @selectedItem="handleSelectedCliente"/>
+                    </template>
+                </s-input-zoom>
                 <s-input-text
-                    v-model="object.manufacture"
+                    v-model="object.manufacturer"
                     ref="manufacture"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-3"
-                    label="Montadora"
+                    label="Fabricante"
                 />
                 <s-input-text
                     v-model="object.model"
@@ -26,9 +30,9 @@
                     required
                 />
                 <s-input-text
-                    v-model="object.licencePlate"
+                    v-model="object.licensePlate"
                     ref="licencePlate"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-3"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
                     label="Placa"
                     v-mask="['AAA-####', 'AAA#A##']"
                     required
@@ -36,8 +40,15 @@
                 <s-input-text
                     v-model="object.color"
                     ref="color"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-3"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
                     label="Cor"
+                />
+                <s-input-text
+                    v-model="object.fleet"
+                    ref="fleet"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
+                    label="Frota"
+                    v-mask="'#####'"
                 />
             </div>
         <div class="row">
@@ -75,7 +86,7 @@
         </div>
       </form>
       </div>
-      <s-modal-delete ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
+      <s-modal-error ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
       <s-modal-notlogged ref="modalNotLogged" @confirm="logout" />
     </div>
   </template>
@@ -111,7 +122,6 @@ export default {
             await search(this.route, { id: id })
                 .then((res) => {
                 this.object = res.data[0]
-                this.object.purchaseValue = parseFloat(this.object.purchaseValue).toFixed(2)
                 })
                 .catch((err) => {
                 console.error(err)
@@ -131,7 +141,6 @@ export default {
         async saveAndKeep() {
             if (await checkSession()) {
             if (await validateForm(this.$refs.form)) {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
     
                 const result = await insert(this.route, this.object)
     
@@ -159,46 +168,48 @@ export default {
             if (this.object.id) {
                 this.$cleanObject(this.object)
     
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
                 const result = await update(this.route, this.$route.params.id, this.object)
     
                 if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
-                } else {
-                    this.object = {}
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Veículo alterado com sucesso !')
-                    this.$router.back()
-                }
+                    if (result.status != '204') {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    } else {
+                        this.object = {}
+                        this.$store.dispatch('setShowToast', true)
+                        this.$store.dispatch('setToastMessage', 'Veículo alterado com sucesso !')
+                        this.$router.back()
+                    }
                 } else {
                 this.modalBody = result.response.data
                 this.modalError.show()
                 }
             } else {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
     
                 const result = await insert(this.route, this.object)
     
                 if (result.status) {
-                if (result.status != '204') {
+                    if (result.status != '204') {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    } else {
+                        this.$store.dispatch('setShowToast', true)
+                        this.$store.dispatch('setToastMessage', 'Veículo criado com sucesso !')
+                        this.$router.back()
+                    }
+                } else {
                     this.modalBody = result.response.data
                     this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Veículo criado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
                 }
             }
             } else {
             this.modalNotLogged.show()
             }
+        },
+
+        handleSelectedCliente(item) {
+            this.$refs.idClient.modalZoom.hide()
+            this.object.idClient = item.idClient.toString()
         },
   
         logout() {
