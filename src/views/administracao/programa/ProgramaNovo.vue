@@ -19,13 +19,13 @@
             label="Rota"
             required
           />
-          <s-input-text
+          <!-- <s-input-text
             v-model="object.order"
             ref="screenOrder"
             divClass="col-12 col-xs-12 col-sm-3 col-md-3 col-xxl-3"
             label="Ordem"
             required
-          />
+          /> -->
         </div>
         <div class="row">
           <s-label-required />

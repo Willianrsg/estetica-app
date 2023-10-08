@@ -120,32 +120,64 @@ export default {
   }),
 
   methods: {
+
     async loadItems(page = 1) {
       if (await this.$checkSession()) {
         const query = { params: { page: page, limit: this.limit } }
         let raw = []
         if (this.filterParam) {
-          this.filterParam.params.page = page
-          this.filterParam.params.limit = this.limit
-          raw = await search(this.filterParam.route, this.filterParam.params)
+          this.filterParam.page = page
+          this.filterParam.limit = this.limit
+          raw = await search(this.route, this.filterParam)
         } else {
           raw = await get(this.route, query)
         }
         this.items = raw.data
         this.pages = Math.ceil(raw.total / this.limit)
+        this.totalRows = raw.total
       } else {
         this.modalNotLogged.show()
       }
     },
 
-    async edit(id) {
-      const route = {
-        name: 'screenUpdate',
-        params: { id: id },
-      }
+    async edit(event, id) {
+      const el = event.srcElement.tagName;
 
-      this.$router.push(route)
+      if (el === 'DIV') {
+        const route = {
+          name: 'screenUpdate',
+          params: { id: id },
+        }
+
+        this.$router.push(route)
+      }
     },
+    // async loadItems(page = 1) {
+    //   if (await this.$checkSession()) {
+    //     const query = { params: { page: page, limit: this.limit } }
+    //     let raw = []
+    //     if (this.filterParam) {
+    //       this.filterParam.params.page = page
+    //       this.filterParam.params.limit = this.limit
+    //       raw = await search(this.filterParam.route, this.filterParam.params)
+    //     } else {
+    //       raw = await get(this.route, query)
+    //     }
+    //     this.items = raw.data
+    //     this.pages = Math.ceil(raw.total / this.limit)
+    //   } else {
+    //     this.modalNotLogged.show()
+    //   }
+    // },
+
+    // async edit(id) {
+    //   const route = {
+    //     name: 'screenUpdate',
+    //     params: { id: id },
+    //   }
+
+    //   this.$router.push(route)
+    // },
 
     async remove() {
       if (await this.$checkSession()) {

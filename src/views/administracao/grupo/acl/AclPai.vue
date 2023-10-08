@@ -130,7 +130,7 @@ export default {
         let params = {}
         params.id = this.$route.params.id_group
 
-        await search(`group/search/by-id`, params)
+        await search(`group`, params)
         .then((res) => {
           this.object = res.data[0]
         })
@@ -143,26 +143,74 @@ export default {
 
     async loadItems(page = 1) {
       if (await this.$checkSession()) {
-        let params = {}
-        params.id_group = this.$route.params.id_group
-
-        const query = { params: { page: page, limit: this.limit } }
+        const query = { params: { page: page, limit: this.limit, id_group: this.$route.params.id_group } }
 
         let raw = []
         if (this.filterParam) {
-          this.filterParam.params.page = page
-          this.filterParam.params.limit = this.limit
-          raw = await search(this.filterParam.route, this.filterParam.params)
+          this.filterParam.page = page
+          this.filterParam.limit = this.limit
+          raw = await search("acl", this.filterParam)
         } else {
-          raw = await search(`group/search/acl-by-id`, params, query)
-          console.log(raw)
+          raw = await search(`acl`, query.params)
         }
         this.items = raw.data
         this.pages = Math.ceil(raw.total / this.limit)
+        this.totalRows = raw.total
       } else {
         this.modalNotLogged.show()
       }
     },
+
+    async edit(event, id) {
+      const el = event.srcElement.tagName;
+
+      if (el === 'DIV') {
+        const route = {
+          name: 'aclUpdate',
+          params: { id: id },
+        }
+
+        this.$router.push(route)
+      }
+    },
+    // async loadItem() {
+    //   if (await this.$checkSession()) {
+    //     let params = {}
+    //     params.id = this.$route.params.id_group
+
+    //     await search(`group/search/by-id`, params)
+    //     .then((res) => {
+    //       this.object = res.data[0]
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //       this.$router.go(-2)
+    //     })
+    //   }
+    // },
+
+    // async loadItems(page = 1) {
+    //   if (await this.$checkSession()) {
+    //     let params = {}
+    //     params.id_group = this.$route.params.id_group
+
+    //     const query = { params: { page: page, limit: this.limit } }
+
+    //     let raw = []
+    //     if (this.filterParam) {
+    //       this.filterParam.params.page = page
+    //       this.filterParam.params.limit = this.limit
+    //       raw = await search(this.filterParam.route, this.filterParam.params)
+    //     } else {
+    //       raw = await search(`group/search/acl-by-id`, params, query)
+    //       console.log(raw)
+    //     }
+    //     this.items = raw.data
+    //     this.pages = Math.ceil(raw.total / this.limit)
+    //   } else {
+    //     this.modalNotLogged.show()
+    //   }
+    // },
 
     async filterAll(event) {
       if (await this.$checkSession()) {
@@ -194,14 +242,14 @@ export default {
       }
     },
 
-    async edit(id) {
-      const route = {
-        name: 'aclUpdate',
-        params: { id: id }
-      }
+    // async edit(id) {
+    //   const route = {
+    //     name: 'aclUpdate',
+    //     params: { id: id }
+    //   }
 
-      this.$router.push(route)
-    },
+    //   this.$router.push(route)
+    // },
 
     async remove() {
       if (await this.$checkSession()) {
