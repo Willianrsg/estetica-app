@@ -9,6 +9,25 @@ const get = async (route, params = {}) => {
   const result = await axios
     .get(url, params)
     .then((res) => {
+      console.log(res.data);
+      return res.data
+    })
+    .catch((err) => {
+      console.error(err)
+      return []
+    })
+
+  return result
+}
+
+const getCep = async (route) => {
+  let url = `cep/${route}`
+  console.log(url);
+  axios.defaults.withCredentials = true
+
+  const result = await axios
+    .get(url)
+    .then((res) => {
       return res.data
     })
     .catch((err) => {
@@ -60,8 +79,10 @@ const search = async (route, objectParams) => {
 
 const insert = async (route, object) => {
   axios.defaults.withCredentials = true
-
+  console.log('CRUD');
+  console.log(object);
   const url = `${baseApiUrl}/${route}`
+  console.log(url);
   const result = await axios
     .post(url, object)
     .then((res) => {
@@ -200,6 +221,7 @@ const getFile = async (route, object) => {
 
 module.exports = {
   get,
+  getCep,
   getById,
   search,
   update,
