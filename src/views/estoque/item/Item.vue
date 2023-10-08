@@ -3,7 +3,6 @@
         <div class="row">
         <div class="col-8">
             <s-title title="Item" :breadcrumb="true" />
-            <!-- <s-title title="Item" /> -->
         </div>
         </div>
         <s-input-filter

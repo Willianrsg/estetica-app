@@ -1,6 +1,5 @@
 <template>
     <div class="m-3">
-      <!-- <s-title :title="title" /> -->
       <s-title :title="title" :breadcrumb="true" />
       <div class="card card-body mx-2">
         <form ref="form" @submit.prevent="submitForm" >

@@ -1,7 +1,7 @@
 <template>
     <div class="m-3">
-      <s-title :title="title" />
-      <!-- <s-title :title="title" :breadcrumb="true" /> -->
+      <!-- <s-title :title="title" /> -->
+      <s-title :title="title" :breadcrumb="true" icon="bi bi-calendar-week" />
       <div class="card card-body mx-2">
         <form ref="form" @submit.prevent="submitForm" >
             <div class="row">
