@@ -1,6 +1,5 @@
 <template>
     <div class="m-3">
-      <!-- <s-title :title="title" /> -->
       <s-title :title="title" :breadcrumb="true" />
       <div class="card card-body mx-2">
         <form ref="form" @submit.prevent="submitForm" >
@@ -62,7 +61,7 @@
         </div>
       </form>
       </div>
-      <s-modal-delete ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
+      <s-modal-error ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
       <s-modal-notlogged ref="modalNotLogged" @confirm="logout" />
     </div>
   </template>
@@ -95,96 +94,96 @@ export default {
     methods: {
         async loadItem(id) {
             if (await checkSession()) {
-            await search(this.route, { id: id })
-                .then((res) => {
-                this.object = res.data[0]
-                this.object.purchaseValue = parseFloat(this.object.purchaseValue).toFixed(2)
-                })
-                .catch((err) => {
-                console.error(err)
-                this.$router.push({ name: 'servico' })
-                })
+                await search(this.route, { id: id })
+                    .then((res) => {
+                    this.object = res.data[0]
+                    this.object.price = parseFloat(this.object.price).toFixed(2)
+                    })
+                    .catch((err) => {
+                    console.error(err)
+                    this.$router.push({ name: 'servico' })
+                    })
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
         async submitForm() {
             if (await validateForm(this.$refs.form)) {
-            this.save()
+                this.save()
             }
         },
   
         async saveAndKeep() {
             if (await checkSession()) {
-            if (await validateForm(this.$refs.form)) {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
-                const result = await insert(this.route, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Serviço criado com sucesso !')
-                    this.object = {}
+                if (await validateForm(this.$refs.form)) {
+                    this.object.price = this.$filters.unformatMoney(this.object.price)
+        
+                    const result = await insert(this.route, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Serviço criado com sucesso !')
+                            this.object = {}
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            }
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
         async save() {
             if (await checkSession()) {
-            if (this.object.id) {
-                this.$cleanObject(this.object)
-    
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
-                const result = await update(this.route, this.$route.params.id, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
+                if (this.object.id) {
+                    this.$cleanObject(this.object)
+        
+                    this.object.price = this.$filters.unformatMoney(this.object.price)
+        
+                    const result = await update(this.route, this.$route.params.id, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.object = {}
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Serviço alterado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 } else {
-                    this.object = {}
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Serviço alterado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
+                    this.object.price = this.$filters.unformatMoney(this.object.price)
+        
+                    const result = await insert(this.route, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Serviço criado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 }
             } else {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
-                const result = await insert(this.route, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Serviço criado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            }
-            } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
