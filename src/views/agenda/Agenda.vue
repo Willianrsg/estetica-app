@@ -22,9 +22,19 @@
                         :totalPages="pages"
                         v-if="!loader"
                     >
-                        <template v-slot:price="{ item }">
+                        <template v-slot:idClient="{ item }">
                             <div class="text-center">
-                                {{ item.price }}
+                                {{ item.idClient }}
+                            </div>
+                        </template>
+                        <template v-slot:idVehicles="{ item }">
+                            <div class="text-center">
+                                {{ item.idVehicles }}
+                            </div>
+                        </template>
+                        <template v-slot:idService="{ item }">
+                            <div class="text-center">
+                                {{ item.idService }}
                             </div>
                         </template>
                         <template v-slot:date="{ item }">
@@ -148,7 +158,6 @@
                         raw = await get(this.route, query)
                     }
                         this.items = raw.data
-                        console.log(this.items);
                         this.pages = Math.ceil(raw.total / this.limit)
                 } else {
                     this.modalNotLogged.show()
