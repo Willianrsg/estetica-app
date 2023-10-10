@@ -11,6 +11,7 @@
             @clear="loadItems"
             name="filterScreen"
             :filters="filterObject"
+            v-if="!zoom"
         />
         <div class="card card-body mx-2">
         <div class="row">
@@ -28,7 +29,7 @@
                         </div>
                     </template>
                     <template v-slot:actions="{ item }">
-                        <div class="text-center">
+                        <div class="text-center" v-if="!zoom">
                             <s-tooltip label="Editar">
                                 <i
                                     class="bi bi-pencil-fill text-secondary px-1"
@@ -49,7 +50,7 @@
                                 type="button"
                                 color="primary btn-sm"
                                 label="Selecionar"
-                                @click=";(selectedItem = item), emitSelectedItem(item)"
+                                @click="emitSelectedItem(item)"
                             />
                         </div>
                     </template>

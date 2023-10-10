@@ -11,21 +11,33 @@
                     divClass="col-12 col-xs-12 col-sm-12 col-md-5 col-xxl-5"
                     label="Cliente"
                     required
-                />
+                >
+                    <template #default>
+                        <Cliente :zoom="true" @selectedItem="handleSelectedCliente"/>
+                    </template>
+                </s-input-zoom>
                 <s-input-zoom
-                    v-model="object.idVehicle"
-                    ref="idVehicle"
+                    v-model="object.idVehicles"
+                    ref="idVehicles"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
                     label="Veiculo"
                     required
-                />
+                >
+                    <template #default>
+                        <Veiculos :zoom="true" @selectedItem="handleSelectedVeiculos"/>
+                    </template>
+                </s-input-zoom>
                 <s-input-zoom
                     v-model="object.idService"
                     ref="idService"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
                     label="Serviço"
                     required
-                />
+                >
+                    <template #default>
+                        <Servicos :zoom="true" @selectedItem="handleSelectedServico"/>
+                    </template>
+                </s-input-zoom>
                 <s-input-date
                     v-model="object.date"
                     ref="date"
@@ -83,7 +95,7 @@
         </div>
       </form>
       </div>
-      <s-modal-delete ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
+      <s-modal-error ref="modalError" modalTitle="Falha ao adicionar o registro !" :modalBody="modalBody" />
       <s-modal-notlogged ref="modalNotLogged" @confirm="logout" />
     </div>
   </template>
@@ -92,12 +104,21 @@
   import { validateForm, checkSession, logout } from '@/rule/functions'
   import { insert, search, update } from '@/crud'
   import { Modal } from 'bootstrap'
+  import Cliente from '@/views/cadastros/cliente/Cliente.vue'
+  import Veiculos from '@/views/cadastros/veiculos/Veiculos.vue'
+  import Servicos from '@/views/cadastros/servico/Servico.vue'
   
 export default {
     name: 'agendaNew',
+
+    components: {
+      Cliente,
+      Veiculos,
+      Servicos
+    },
   
     data: () => ({
-        route: 'agenda',
+        route: 'schedule',
         object: {},
         Modal: null,
         modalNotLogged: null,
@@ -119,7 +140,7 @@ export default {
             await search(this.route, { id: id })
                 .then((res) => {
                 this.object = res.data[0]
-                this.object.purchaseValue = parseFloat(this.object.purchaseValue).toFixed(2)
+                // this.object.purchaseValue = parseFloat(this.object.purchaseValue).toFixed(2)
                 })
                 .catch((err) => {
                 console.error(err)
@@ -139,7 +160,7 @@ export default {
         async saveAndKeep() {
             if (await checkSession()) {
             if (await validateForm(this.$refs.form)) {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
+                // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
     
                 const result = await insert(this.route, this.object)
     
@@ -167,7 +188,7 @@ export default {
             if (this.object.id) {
                 this.$cleanObject(this.object)
     
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
+                // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
     
                 const result = await update(this.route, this.$route.params.id, this.object)
     
@@ -186,7 +207,7 @@ export default {
                 this.modalError.show()
                 }
             } else {
-                this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
+                // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
     
                 const result = await insert(this.route, this.object)
     
@@ -207,6 +228,21 @@ export default {
             } else {
             this.modalNotLogged.show()
             }
+        },
+
+        handleSelectedCliente(item) {
+            this.$refs.idClient.modalZoom.hide()
+            this.object.idClient = item.id.toString()
+        },
+
+        handleSelectedVeiculos(item) {
+            this.$refs.idVehicles.modalZoom.hide()
+            this.object.idVehicles = item.id.toString()
+        },
+
+        handleSelectedServico(item) {
+            this.$refs.idService.modalZoom.hide()
+            this.object.idService = item.id.toString()
         },
   
         logout() {

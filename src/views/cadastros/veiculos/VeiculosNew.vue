@@ -7,7 +7,7 @@
             <div class="row">
                 <s-input-zoom
                     v-model="object.idClient"
-                    ref="client"
+                    ref="idClient"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-12"
                     label="Cliente"
                     required
@@ -95,9 +95,14 @@
   import { validateForm, checkSession, logout } from '@/rule/functions'
   import { insert, search, update } from '@/crud'
   import { Modal } from 'bootstrap'
+  import Cliente from '@/views/cadastros/cliente/Cliente.vue'
   
 export default {
     name: 'VehiclesNew',
+
+    components: {
+      Cliente
+    },
   
     data: () => ({
         route: 'vehicles',
@@ -209,7 +214,7 @@ export default {
 
         handleSelectedCliente(item) {
             this.$refs.idClient.modalZoom.hide()
-            this.object.idClient = item.idClient.toString()
+            this.object.idClient = item.id.toString()
         },
   
         logout() {
