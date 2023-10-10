@@ -15,7 +15,7 @@ export default {
     label: String,
     color: {
       type: String,
-      default: '#0d6efd',
+      default: '#808080',
     },
     active: {
       type: Boolean,

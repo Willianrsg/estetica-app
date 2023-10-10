@@ -1,12 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg d-flex justify-content-between" v-if="logged">
+  <nav class="navbar navbar-expand-lg text-white d-flex justify-content-between" v-if="logged">
     <div>
       <i class="bi bi-list icon_action ps-3" @click="toggleSidebar"></i>
-      <img src="@/assets/logo1.png" class="ps-3" style="width: 100px;"/>
+      <img src="@/assets/exoticar.png" class="ps-3" style="width: 250px;"/>
     </div>
     <div>
       <i class="bi bi-person-fill-gear icon" @click="$router.push({ name: 'myProfile' })"></i>
-      <span class="px-2 me-1">{{ user.name }}</span>
+      <span class="px-2 text-white me-1">{{ user.name }}</span>
       <s-button
         type="button"
         label="Sair"
@@ -189,7 +189,7 @@ export default {
   max-width: 250px;
   transition: all 0.3s;
   position: relative;
-  background-color: #05C3F3;
+  background-color: #313c45;
 }
 
 .sidebar .sidebarBottom {
@@ -214,7 +214,7 @@ export default {
 
 .navbar {
   height: 5vh;
-  background-color: #05C3F3;
+  background-color: #313c45;
 }
 
 .item-firstLevel:hover {

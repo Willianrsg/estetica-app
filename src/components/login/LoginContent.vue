@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-8 d-flex flex-column justify-content-center align-items-center bg-light divContent">
-    <img src="@/assets/logo_login.png">
+  <div class="col-md-8 d-flex flex-column justify-content-center align-items-center color divContent">
+    <img src="@/assets/logoLogin.png">
   </div>
 </template>
 
@@ -11,5 +11,8 @@ export default {
 </script>
 
 <style>
-
+  .color {
+    background-color: #39494c;
+    /* background-color: #f5f5f5; */
+  }
 </style>

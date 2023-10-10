@@ -15,7 +15,7 @@
             <span class="ms-auto"></span>
           </a>
           <div v-if="menuItem.children.length > 0" :class="divSubItemClasses(menuItem)">
-            <ul class="btn-toggle-nav list-unstyled fw-normal p-1 ms-3">
+            <ul class="btn-toggle-nav text-white list-unstyled fw-normal p-1 ms-3">
               <li v-for="(subItem, j) in menuItem.children" :key="j">
                 <a
                   href="#"
@@ -165,7 +165,13 @@ export default {
 
 <style>
 .subItemActive {
-  background-color: #0564F3 !important;
+  /* background-color: #0564F3 !important; */
+  background-color: #041D32 !important;
+}
+
+.btn-toggle{
+  background-color: #A4CACC !important;
+  color: black !important;
 }
 
 </style>

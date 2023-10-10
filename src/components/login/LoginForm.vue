@@ -119,7 +119,8 @@ export default {
 }
 
 .bg-color{
-  background-color: #05C3F3;
+  background-color: #88cdda;
+  /* background-color: #05C3F3; */
 }
 
 .bg2 {
