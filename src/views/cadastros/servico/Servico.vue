@@ -57,13 +57,13 @@
                     </s-table>
                 </div>
                 <div class="col-12" v-if="!loader && !zoom">
-                <s-button
-                    type="button"
-                    label="Novo"
-                    color="primary"
-                    icon="plus-lg"
-                    @click="this.$router.push({ name: 'servicoNew' })"
-                />
+                    <s-button
+                        type="button"
+                        label="Novo"
+                        color="primary"
+                        icon="plus-lg"
+                        @click="this.$router.push({ name: 'servicoNew' })"
+                    />
                 </div>
             </div>
         <!-- <TheLoader v-if="loader" /> -->
