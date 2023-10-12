@@ -89,6 +89,22 @@ export function getRouteName(route) {
       UpdateName: 'Edição de Serviço',
       UpdatePath: 'servicoUpdate',
     },
+    produto: {
+      parent: 'Serviços',
+      name: 'Produtos',
+      path: 'produto',
+      childrenName: 'Cadastro de Produtos',
+      childrenPath: 'produtoNew',
+      UpdateName: 'Edição de Produtos',
+      UpdatePath: 'produtoUpdate',
+    },
+    produtoChildren:{
+      parent: 'Servico', 
+      name: 'Produto',
+      path: 'produtoChildren',
+      childrenName: '',
+      childrenPath: '',
+    },
     item: {
       parent: 'Estoque',
       name: 'item',

@@ -30,6 +30,13 @@
                         </template>
                         <template v-slot:actions="{ item }">
                             <div class="text-center" v-if="!zoom">
+                                <s-tooltip label="Produtos">
+                                    <i
+                                        class="bi bi-box-seam px-2"
+                                        style="cursor: pointer"
+                                        @click="details(item.id)"
+                                    ></i>
+                                </s-tooltip>
                                 <s-tooltip label="Editar">
                                     <i
                                         class="bi bi-pencil-fill text-secondary px-1"
@@ -139,6 +146,15 @@ export default {
             const route = {
                 name: 'servicoUpdate',
                 params: { id: id },
+            }
+
+            this.$router.push(route)
+        },
+
+        details(id) {
+            const route = {
+                name: 'produto',
+                params: { idService: id },
             }
 
             this.$router.push(route)

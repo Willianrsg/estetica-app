@@ -95,6 +95,23 @@ const routes = [
     component: () => import('@/views/cadastros/servico/ServicoNew.vue')
   },
 
+  /* ########## PRODUTO SERVIÇO ########## */
+  {
+    path: '/cadastro/servico/:idService/produto',
+    name: 'produto',
+    component: () => import('@/views/cadastros/servico/produtos/Produtos.vue')
+  },
+  {
+    path: '/cadastro/servico/:idService/produto/novo',
+    name: 'produtoNew',
+    component: () => import('@/views/cadastros/servico/produtos/ProdutosNew.vue')
+  },
+  {
+    path: '/cadastro/servico/:idService/produto/:id/editar',
+    name: 'produtoUpdate',
+    component: () => import('@/views/cadastros/servico/produtos/ProdutosNew.vue')
+  },
+
   /* ########## ESTOQUE ########## */
   {
     path: '/estoque/item',
