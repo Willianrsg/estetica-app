@@ -47,21 +47,38 @@ const routes = [
     name: 'clienteUpdate',
     component: () => import('@/views/cadastros/cliente/ClienteNew.vue')
   },
+
+  /* ######## VEICULOS ####### */
   {
-    path: '/cadastro/veiculos',
-    name: 'veiculos',
+    path: '/cadastro/cliente/:idClient/veiculos',
+    name: 'veiculo',
     component: () => import('@/views/cadastros/veiculos/Veiculos.vue')
   },
   {
-    path: '/cadastro/veiculos/cadastro/novo',
-    name: 'veiculosNew',
+    path: '/cadastro/cliente/:idClient/veiculos/novo',
+    name: 'veiculoNew',
     component: () => import('@/views/cadastros/veiculos/VeiculosNew.vue')
   },
   {
-    path: '/cadastro/veiculos/:id/editar',
-    name: 'veiculosUpdate',
+    path: '/cadastro/cliente/:idClient/veiculos/:id/editar',
+    name: 'veiculoUpdate',
     component: () => import('@/views/cadastros/veiculos/VeiculosNew.vue')
   },
+  // {
+  //   path: '/cadastro/veiculos',
+  //   name: 'veiculos',
+  //   component: () => import('@/views/cadastros/veiculos/Veiculos.vue')
+  // },
+  // {
+  //   path: '/cadastro/veiculos/cadastro/novo',
+  //   name: 'veiculosNew',
+  //   component: () => import('@/views/cadastros/veiculos/VeiculosNew.vue')
+  // },
+  // {
+  //   path: '/cadastro/veiculos/:id/editar',
+  //   name: 'veiculosUpdate',
+  //   component: () => import('@/views/cadastros/veiculos/VeiculosNew.vue')
+  // },
   {
     path: '/cadastro/servico',
     name: 'servico',

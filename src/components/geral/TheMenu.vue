@@ -80,14 +80,14 @@ export default {
             // child: 'acl',
             children: [],
           },
-          {
-            code: 'veiculos',
-            title: 'Veículos',
-            status: false,
-            icon: 'bi bi-circle',
-            // child: 'acl',
-            children: [],
-          },
+          // {
+          //   code: 'veiculos',
+          //   title: 'Veículos',
+          //   status: false,
+          //   icon: 'bi bi-circle',
+          //   // child: 'acl',
+          //   children: [],
+          // },
           {
             code: 'servico',
             title: 'Serviço',

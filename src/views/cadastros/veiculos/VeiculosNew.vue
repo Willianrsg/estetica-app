@@ -1,11 +1,11 @@
 <template>
     <div class="m-3">
-      <!-- <s-title :title="title" /> -->
+      <!-- <s-title title="title" :breadcrumb="false"/> -->
       <s-title :title="title" :breadcrumb="true" icon="bi bi-car-front-fill"/>
       <div class="card card-body mx-2">
         <form ref="form" @submit.prevent="submitForm" >
             <div class="row">
-                <s-input-zoom
+                <!-- <s-input-zoom
                     v-model="object.idClient"
                     ref="idClient"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-12"
@@ -15,7 +15,7 @@
                     <template #default>
                         <Cliente :zoom="true" @selectedItem="handleSelectedCliente"/>
                     </template>
-                </s-input-zoom>
+                </s-input-zoom> -->
                 <s-input-text
                     v-model="object.manufacturer"
                     ref="manufacture"
@@ -95,14 +95,14 @@
   import { validateForm, checkSession, logout } from '@/rule/functions'
   import { insert, search, update } from '@/crud'
   import { Modal } from 'bootstrap'
-  import Cliente from '@/views/cadastros/cliente/Cliente.vue'
+//   import Cliente from '@/views/cadastros/cliente/Cliente.vue'
   
 export default {
     name: 'VehiclesNew',
 
-    components: {
-      Cliente
-    },
+    // components: {
+    //   Cliente
+    // },
   
     data: () => ({
         route: 'vehicles',
@@ -124,105 +124,110 @@ export default {
     methods: {
         async loadItem(id) {
             if (await checkSession()) {
-            await search(this.route, { id: id })
-                .then((res) => {
-                this.object = res.data[0]
-                })
-                .catch((err) => {
-                console.error(err)
-                this.$router.push({ name: 'vehicles' })
-                })
+                await search(this.route, { id: id })
+                    .then((res) => {
+                        this.object = res.data[0]
+                    })
+                    .catch((err) => {
+                        console.error(err)
+                        this.$router.push({ name: 'vehicles' })
+                    })
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
         async submitForm() {
             if (await validateForm(this.$refs.form)) {
-            this.save()
+                this.save()
             }
         },
   
         async saveAndKeep() {
             if (await checkSession()) {
-            if (await validateForm(this.$refs.form)) {
-    
-                const result = await insert(this.route, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Veículo criado com sucesso !')
-                    this.object = {}
+                if (await validateForm(this.$refs.form)) {
+        
+                    const result = await insert(this.route, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Veículo criado com sucesso !')
+                            this.object = {}
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            }
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
         async save() {
             if (await checkSession()) {
-            if (this.object.id) {
-                this.$cleanObject(this.object)
-    
-                const result = await update(this.route, this.$route.params.id, this.object)
-    
-                if (result.status) {
-                    if (result.status != '204') {
+                if (this.object.id) {
+                    this.$cleanObject(this.object)
+        
+                    const result = await update(this.route, this.$route.params.id, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.object = {}
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Veículo alterado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
                         this.modalBody = result.response.data
                         this.modalError.show()
-                    } else {
-                        this.object = {}
-                        this.$store.dispatch('setShowToast', true)
-                        this.$store.dispatch('setToastMessage', 'Veículo alterado com sucesso !')
-                        this.$router.back()
                     }
                 } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            } else {
-    
-                const result = await insert(this.route, this.object)
-    
-                if (result.status) {
-                    if (result.status != '204') {
+        
+                    const result = await insert(this.route, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Veículo criado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
                         this.modalBody = result.response.data
                         this.modalError.show()
-                    } else {
-                        this.$store.dispatch('setShowToast', true)
-                        this.$store.dispatch('setToastMessage', 'Veículo criado com sucesso !')
-                        this.$router.back()
                     }
-                } else {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
                 }
-            }
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
 
-        handleSelectedCliente(item) {
-            this.$refs.idClient.modalZoom.hide()
-            this.object.idClient = item.id.toString()
-        },
+        // handleSelectedCliente(item) {
+        //     this.$refs.idClient.modalZoom.hide()
+        //     this.object.idClient = item.id.toString()
+        // },
   
+        loadParam() {
+            this.object.idClient = this.$route.params.idClient
+        },
+        
         logout() {
             logout(this)
         },
     },
   
     mounted() {
+        this.loadParam()
         this.$route.name == 'veiculosUpdate' ? (this.title = 'Edição de Veículo') : (this.title = 'Cadastro de Veículo')
         this.modalNotLogged = new Modal(this.$refs.modalNotLogged.$refs.modalPattern)
         this.modalError = new Modal(this.$refs.modalError.$refs.modalPattern)

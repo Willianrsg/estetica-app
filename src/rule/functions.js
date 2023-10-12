@@ -57,21 +57,28 @@ export function getRouteName(route) {
     },
     cliente: {
       parent: 'Cadastro',
-      name: 'cliente',
+      name: 'Cliente',
       path: 'cliente',
       childrenName: 'Cadastro de Cliente',
       childrenPath: 'clienteNew',
       UpdateName: 'Edição de Cliente',
       UpdatePath: 'clienteUpdate',
     },
-    veiculos: {
+    veiculo: {
       parent: 'Cadastro',
       name: 'Veiculos',
-      path: 'veiculos',
+      path: 'veiculo',
       childrenName: 'Cadastro de Veículo',
       childrenPath: 'veiculoNew',
       UpdateName: 'Edição de Veículo',
       UpdatePath: 'veiculoUpdate',
+    },
+    veiculoChildren:{
+      parent: 'Cliente', 
+      name: 'Veiculos',
+      path: 'veiculoChildren',
+      childrenName: '',
+      childrenPath: '',
     },
     servico: {
       parent: 'Cadastro',

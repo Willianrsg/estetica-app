@@ -1,19 +1,31 @@
 <template>
 <div class="m-3">
     <div class="row">
-        <div class="col-8">
+        <div class="col-6">
             <s-title title="Veículos" :breadcrumb="true" icon="bi bi-car-front-fill" />
         </div>
+        <div class="col-6 text-end">
+            <s-button
+                type="button"
+                color="primary"
+                label="Voltar"
+                icon="bi bi-arrow-left"
+                @click="$router.back()"
+            />
+        </div>
     </div>
-    <s-input-filter
-        @index="handleIndex"
-        @filter="filterAll"
-        @clear="loadItems"
-        name="filterScreen"
-        :filters="filterObject"
-        v-if="!zoom"
-    />
-    <div class="card card-body mx-2">
+    <div class="card card-body mx-2 mt-3">
+        <div class="row mt-3">
+            <div class="col-12">
+                <s-input-text
+                    label="Nome"
+                    ref="groupName"
+                    :isDisabled="true"
+                    v-model="object.name"                    
+                />
+            </div>
+        </div>
+        <hr class="border border-1"/>
         <div class="row">
             <div class="col-12">
                 <s-table
@@ -67,7 +79,7 @@
                 label="Novo"
                 color="primary"
                 icon="plus-lg"
-                @click="this.$router.push({ name: 'veiculosNew' })"
+                @click="this.$router.push({ name: 'veiculoNew' })"
             />
             </div>
         </div>
@@ -88,7 +100,7 @@ export default {
     data: () => ({
         route: 'vehicles',
         headers: [
-            { title: 'Cliente', field: 'idClient' },
+            // { title: 'Cliente', field: 'idClient' },
             { title: 'Placa', field: 'licensePlate' },
             { title: 'Modelo', field: 'model' },
             { title: 'Montadora', field: 'manufacturer' },
@@ -132,9 +144,24 @@ export default {
     },
 
     methods: {
+        async loadItem() {
+            if (await this.$checkSession()) {
+                let params = {}
+                params.id = this.$route.params.idClient
+
+                await search(`client`, params)
+                    .then((res) => {
+                    this.object = res.data[0]
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.$router.go(-2)
+                })
+            }
+        },
         async loadItems(page = 1) {
             if (await this.$checkSession()) {
-                const query = { params: { page: page, limit: this.limit } }
+                const query = { params: { page: page, limit: this.limit, idClient: this.$route.params.idClient } }
                 let raw = []
                 if (this.filterParam) {
                     this.filterParam.params.page = page
@@ -152,7 +179,7 @@ export default {
 
         async edit(id) {
             const route = {
-                name: 'veiculosUpdate',
+                name: 'veiculoUpdate',
                 params: { id: id },
             }
 
@@ -227,6 +254,11 @@ export default {
         logout() {
             logout(this)
         },
+    },
+
+    async created() {
+        await this.loadItem()
+        await this.loadItems()
     },
 
     async mounted() {

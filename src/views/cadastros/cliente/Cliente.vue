@@ -30,16 +30,23 @@
                     </template>
                     <template v-slot:actions="{ item }">
                         <div class="text-center" v-if="!zoom">
+                            <s-tooltip label="Veículos">
+                                <i
+                                    class="bi bi-car-front-fill px-2"
+                                    style="cursor: pointer"
+                                    @click="details(item.id)"
+                                ></i>
+                            </s-tooltip>
                             <s-tooltip label="Editar">
                                 <i
-                                    class="bi bi-pencil-fill text-secondary px-1"
+                                    class="bi bi-pencil-fill text-secondary px-2"
                                     style="cursor: pointer"
                                     @click="edit(item.id)"
                                 ></i>
                             </s-tooltip>
                             <s-tooltip label="Excluir">
                                 <i
-                                    class="bi bi-trash-fill text-danger px-1"
+                                    class="bi bi-trash-fill text-danger px-2"
                                     style="cursor: pointer"
                                     @click="removeConfirm(item)"
                                 ></i>
@@ -176,32 +183,16 @@
             handleIndex(event) {
                 this.filterOption = event
             },
-    
-            // changeHeaders() {
-            //     if (this.filterOption == 1) {
-            //         this.headers = [
-            //         { title: 'Nome', field: 'name' },
-            //         { title: 'Rota', field: 'route' },
-            //         { title: 'Ordem', field: 'order' },
-            //         { title: 'Ações', field: 'actions' },
-            //         ]
-            //     } else if (this.filterOption == 2) {
-            //         this.headers = [
-            //         { title: 'Rota', field: 'route' },
-            //         { title: 'Nome', field: 'name' },
-            //         { title: 'Ordem', field: 'order' },
-            //         { title: 'Ações', field: 'actions' },
-            //         ]
-            //     } else {
-            //         this.headers = [
-            //         { title: 'Ordem', field: 'order' },
-            //         { title: 'Nome', field: 'name' },
-            //         { title: 'Rota', field: 'route' },
-            //         { title: 'Ações', field: 'actions' },
-            //         ]
-            //     }
-            // },
-    
+
+            details(id) {
+                const route = {
+                    name: 'veiculo',
+                    params: { idClient: id },
+                }
+
+                this.$router.push(route)
+            },
+        
             logout() {
                 logout(this)
             },
@@ -214,15 +205,21 @@
             this.modalNotLogged = new this.$Modal(this.$refs.modalNotLogged.$refs.modalPattern)
         },
     
-            watch: {
-                filterOption() {
-                this.loadItems()
-                this.changeHeaders()
-                },
-                actualPage() {
-                this.loadItems(this.actualPage)
-                },
-            },
+        // watch: {
+        //     filterOption() {
+        //     this.loadItems()
+        //     this.changeHeaders()
+        //     },
+        //     actualPage() {
+        //     this.loadItems(this.actualPage)
+        //     },
+        // },
+
+        async created() {
+            const id = this.$route.params.id
+
+            if (id) { await this.loadItem(id) }
+        },
     }
 </script>
     
