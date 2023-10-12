@@ -1,6 +1,6 @@
 <template>
 <div class="m-3">
-    <div class="row">
+    <div class="row" v-if="!zoom">
         <div class="col-6">
             <s-title title="Veículos" :breadcrumb="true" icon="bi bi-car-front-fill" />
         </div>
@@ -14,14 +14,14 @@
             />
         </div>
     </div>
-    <div class="card card-body mx-2 mt-3">
+    <div class="card card-body mx-2 mt-3" v-if="object">
         <div class="row mt-3">
             <div class="col-12">
                 <s-input-text
                     label="Nome"
                     ref="groupName"
                     :isDisabled="true"
-                    v-model="object.name"                    
+                    v-model="object.name"                                        
                 />
             </div>
         </div>
@@ -95,7 +95,7 @@ import { logout } from '@/rule/functions.js'
 import { get, remove, search } from '@/crud.js'
 
 export default {
-    name: 'veiculos',
+    name: 'veiculo',
 
     data: () => ({
         route: 'vehicles',

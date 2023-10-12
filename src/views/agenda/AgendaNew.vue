@@ -137,96 +137,97 @@ export default {
     methods: {
         async loadItem(id) {
             if (await checkSession()) {
-            await search(this.route, { id: id })
-                .then((res) => {
-                this.object = res.data[0]
-                // this.object.purchaseValue = parseFloat(this.object.purchaseValue).toFixed(2)
-                })
-                .catch((err) => {
-                console.error(err)
-                this.$router.push({ name: 'agenda' })
-                })
+                await search(this.route, { id: id })
+                    .then((res) => {
+                        this.object = res.data[0]
+                    })
+                    .catch((err) => {
+                        console.error(err)
+                        this.$router.push({ name: 'agenda' })
+                    })
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
         async submitForm() {
             if (await validateForm(this.$refs.form)) {
-            this.save()
+                this.save()
             }
         },
+
+        teste(){alert('ok')},
   
         async saveAndKeep() {
             if (await checkSession()) {
-            if (await validateForm(this.$refs.form)) {
-                // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
-                const result = await insert(this.route, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Agenda criado com sucesso !')
-                    this.object = {}
+                if (await validateForm(this.$refs.form)) {
+                    // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
+        
+                    const result = await insert(this.route, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Agenda criado com sucesso !')
+                            this.object = {}
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            }
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
   
         async save() {
             if (await checkSession()) {
-            if (this.object.id) {
-                this.$cleanObject(this.object)
-    
-                // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
-                const result = await update(this.route, this.$route.params.id, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
+                if (this.object.id) {
+                    this.$cleanObject(this.object)
+        
+                    // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
+        
+                    const result = await update(this.route, this.$route.params.id, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.object = {}
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Agenda alterado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 } else {
-                    this.object = {}
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Agenda alterado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
+                    // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
+        
+                    const result = await insert(this.route, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Agenda criado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 }
             } else {
-                // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-    
-                const result = await insert(this.route, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
-                } else {
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Agenda criado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            }
-            } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
 

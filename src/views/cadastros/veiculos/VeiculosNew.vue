@@ -98,7 +98,7 @@
 //   import Cliente from '@/views/cadastros/cliente/Cliente.vue'
   
 export default {
-    name: 'VehiclesNew',
+    name: 'veiculoNew',
 
     // components: {
     //   Cliente
@@ -228,7 +228,7 @@ export default {
   
     mounted() {
         this.loadParam()
-        this.$route.name == 'veiculosUpdate' ? (this.title = 'Edição de Veículo') : (this.title = 'Cadastro de Veículo')
+        this.$route.name == 'veiculoUpdate' ? (this.title = 'Edição de Veículo') : (this.title = 'Cadastro de Veículo')
         this.modalNotLogged = new Modal(this.$refs.modalNotLogged.$refs.modalPattern)
         this.modalError = new Modal(this.$refs.modalError.$refs.modalPattern)
     },
