@@ -11,6 +11,7 @@
             @clear="loadItems"
             name="filterScreen"
             :filters="filterObject"
+            v-if="!zoom"
         />
         <div class="card card-body mx-2">
             <div class="row">
@@ -33,7 +34,7 @@
                             </div>
                         </template>
                         <template v-slot:actions="{ item }">
-                            <div class="text-center">
+                            <div class="text-center" v-if="!zoom">
                                 <s-tooltip label="Editar">
                                     <i
                                         class="bi bi-pencil-fill text-secondary px-1"
@@ -49,10 +50,18 @@
                                     ></i>
                                 </s-tooltip>
                             </div>
+                            <div class="text-center" v-if="zoom">
+                                <s-button
+                                    type="button"
+                                    color="primary btn-sm"
+                                    label="Selecionar"
+                                    @click="emitSelectedItem(item)"
+                                />
+                            </div>
                         </template>
                     </s-table>
                 </div>
-                <div class="col-12" v-if="!loader">
+                <div class="col-12" v-if="!loader && !zoom">
                     <s-button
                         type="button"
                         label="Novo"
@@ -118,6 +127,14 @@
             filterOption: 1,
             filterParam: null
         }),
+
+        props: {
+            zoom: {
+                type: Boolean,
+                default: false,
+            },
+            valueZoom: String,
+        },
     
         methods: {
             async loadItems(page = 1) {
@@ -171,6 +188,10 @@
                 } else {
                     this.modalNotLogged.show()
                 }
+            },
+
+            emitSelectedItem(item) {
+                this.$emit('selectedItem', item)
             },
     
             handleIndex(event) {
