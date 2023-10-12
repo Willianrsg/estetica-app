@@ -65,7 +65,7 @@ export function getRouteName(route) {
       UpdatePath: 'clienteUpdate',
     },
     veiculo: {
-      parent: 'Cadastro',
+      parent: 'Cliente',
       name: 'Veiculos',
       path: 'veiculo',
       childrenName: 'Cadastro de Veículo',
@@ -74,8 +74,8 @@ export function getRouteName(route) {
       UpdatePath: 'veiculoUpdate',
     },
     veiculoChildren:{
-      parent: 'Cliente', 
-      name: 'Veiculos',
+      parent: 'cliente', 
+      name: 'veiculo',
       path: 'veiculoChildren',
       childrenName: '',
       childrenPath: '',
