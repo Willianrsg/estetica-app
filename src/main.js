@@ -36,6 +36,7 @@ import TheDoughnutChart from '@/components/grafico/TheDoughnutChart.vue'
 // input
 import TheInputCheck from '@/components/input/TheInputCheck.vue'
 import TheInputDate from '@/components/input/TheInputDate.vue'
+import TheInputHour from '@/components/input/TheInputHour.vue'
 import TheInputDateRange from '@/components/input/TheInputDateRange.vue'
 import TheInputEmail from '@/components/input/TheInputEmail.vue'
 import TheInputFile from '@/components/input/TheInputFile.vue'
@@ -108,6 +109,7 @@ app
   // input
   .component('s-input-check', TheInputCheck)
   .component('s-input-date', TheInputDate)
+  .component('s-input-hour', TheInputHour)
   .component('s-input-daterange', TheInputDateRange)
   .component('s-input-email', TheInputEmail)
   .component('s-input-file', TheInputFile)
