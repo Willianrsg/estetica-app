@@ -3,11 +3,17 @@ const validateRequired = (value, required, object, messageRequired, minLength, m
     setError(object, messageRequired)
     return false
   }
-
+  
+  else if (value && typeof(value) == 'number') {
+    setValid(object)
+    return true
+  }
+  
   else if (value && (value.trim().length < minLength)) {
     setError(object, messageLength)
     return false
   }
+
 
   else {
     setValid(object)
@@ -26,6 +32,28 @@ const validateDate = (value, required, object, messageRequired) => {
     return true
   }
 }
+
+const validateTime = (value, required, object, messageRequired) => {
+  if (!value && required) {
+    setError(object, messageRequired);
+    return false;
+  }
+
+  // Adicione sua validação específica de hora aqui, se necessário.
+
+  // Por exemplo, você pode verificar se a hora está em um formato HH:mm
+  const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+  if (!timeRegex.test(value)) {
+    setError(object, "Hora inválida. Use o formato HH:mm.");
+    return false;
+  }
+
+  // Se a validação de hora não passar, defina o erro.
+  // Caso contrário, defina como válido.
+
+  setValid(object);
+  return true;
+};
 
 
 
@@ -61,9 +89,10 @@ const setValid = (object) => {
 
 module.exports = {
   validateRequired,
+  validateTime,
   validateEmail,
   validateFile,
   validateDate,
   setError,
-  setValid
+  setValid,
 }
