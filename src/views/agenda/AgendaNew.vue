@@ -8,7 +8,7 @@
                 <s-input-zoom
                     v-model="object.idClient"
                     ref="idClient"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-5 col-xxl-5"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-4 col-xxl-4"
                     label="Cliente"
                     required
                 >
@@ -16,7 +16,7 @@
                         <Cliente :zoom="true" @selectedItem="handleSelectedCliente"/>
                     </template>
                 </s-input-zoom>
-                <s-input-zoom
+                <!-- <s-input-zoom
                     v-model="object.idVehicles"
                     ref="idVehicles"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
@@ -26,7 +26,16 @@
                     <template #default>
                         <Veiculos :zoom="true" @selectedItem="handleSelectedVeiculos"/>
                     </template>
-                </s-input-zoom>
+                </s-input-zoom> -->
+                <s-select
+                    v-model="object.idVehicles"
+                    ref="idVehicles"
+                    :items= vehicles
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
+                    label="Veiculo"
+                    required
+                    clearable
+                />
                 <s-input-zoom
                     v-model="object.idService"
                     ref="idService"
@@ -45,12 +54,19 @@
                     label="Data"
                     required
                 />
-                <s-input-text
+                <!-- <s-input-text
                     v-model="object.hour"
                     ref="hour"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-1 col-xxl-1"
                     label="Hora"
                     v-mask="['##:##']"
+                    required
+                /> -->
+                <s-input-hour
+                    v-model="object.hour"
+                    ref="hour"
+                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
+                    label="Hora"
                     required
                 />
                 <s-input-textarea
@@ -101,11 +117,11 @@
   </template>
   
   <script>
-  import { validateForm, checkSession, logout } from '@/rule/functions'
-  import { insert, search, update } from '@/crud'
+  import { validateForm, validateTime,  checkSession, logout } from '@/rule/functions'
+  import { get, insert, search, update } from '@/crud'
   import { Modal } from 'bootstrap'
   import Cliente from '@/views/cadastros/cliente/Cliente.vue'
-  import Veiculos from '@/views/cadastros/veiculos/Veiculos.vue'
+//   import Veiculos from '@/views/cadastros/veiculos/Veiculos.vue'
   import Servicos from '@/views/cadastros/servico/Servico.vue'
   
 export default {
@@ -113,7 +129,7 @@ export default {
 
     components: {
       Cliente,
-      Veiculos,
+    //   Veiculos,
       Servicos
     },
   
@@ -125,6 +141,9 @@ export default {
         modalError: null,
         modalBody: null,
         title: null,
+        idClient: null,
+        item: [{label: 'agenda', value: '1'}],
+        vehicles: [],
     
         moneyConfig: {
             decimal: ',',
@@ -132,7 +151,8 @@ export default {
             precision: 2,
             masked: false,
         },
-    }),
+        
+    }),        
   
     methods: {
         async loadItem(id) {
@@ -155,14 +175,10 @@ export default {
                 this.save()
             }
         },
-
-        teste(){alert('ok')},
   
         async saveAndKeep() {
             if (await checkSession()) {
-                if (await validateForm(this.$refs.form)) {
-                    // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-        
+                if (await validateForm(this.$refs.form)) {        
                     const result = await insert(this.route, this.object)
         
                     if (result.status) {
@@ -188,9 +204,7 @@ export default {
             if (await checkSession()) {
                 if (this.object.id) {
                     this.$cleanObject(this.object)
-        
-                    // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
-        
+                
                     const result = await update(this.route, this.$route.params.id, this.object)
         
                     if (result.status) {
@@ -208,7 +222,6 @@ export default {
                         this.modalError.show()
                     }
                 } else {
-                    // this.object.purchaseValue = this.$filters.unformatMoney(this.object.purchaseValue)
         
                     const result = await insert(this.route, this.object)
         
@@ -234,12 +247,13 @@ export default {
         handleSelectedCliente(item) {
             this.$refs.idClient.modalZoom.hide()
             this.object.idClient = item.id.toString()
+            this.idClient = item.id.toString()
         },
 
-        handleSelectedVeiculos(item) {
-            this.$refs.idVehicles.modalZoom.hide()
-            this.object.idVehicles = item.id.toString()
-        },
+        // handleSelectedVeiculos(item) {
+        //     this.$refs.idVehicles.modalZoom.hide()
+        //     this.object.idVehicles = item.id.toString()
+        // },
 
         handleSelectedServico(item) {
             this.$refs.idService.modalZoom.hide()
@@ -255,6 +269,22 @@ export default {
         this.$route.name == 'agendaUpdate' ? (this.title = 'Edição de Agenda') : (this.title = 'Cadastro de Agenda')
         this.modalNotLogged = new Modal(this.$refs.modalNotLogged.$refs.modalPattern)
         this.modalError = new Modal(this.$refs.modalError.$refs.modalPattern)
+    },
+
+    watch: {
+        async idClient(){
+            // alert('ok')
+            const query = { params: { page: 1, limit: 10, idClient: this.object.idClient } }
+            const res = await get('vehicles', query)
+            this.vehicles = res.data
+
+            this.vehicles = res.data.map(vehicle => ({
+                value: vehicle.id,
+                label: vehicle.model,
+            }));
+
+            this.object.idVehicles = ''
+        }
     },
     
     async created() {
