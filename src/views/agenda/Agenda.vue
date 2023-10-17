@@ -114,11 +114,11 @@
         limit: 10,
     
         filterObject: [
-            { label: 'Cliente', ref: 'idClient', route: 'agenda',  param: 'idClient', type: 'text', index: 1 },
+            { label: 'Cliente', ref: 'idClient', route: 'schedule',  param: 'idClient', type: 'text', index: 1 },
             {
                 label: 'Serviço',
                 ref: 'idService',
-                route: 'agenda',
+                route: 'schedule',
                 param: 'idService',
                 type: 'text',
                 index: 2,
@@ -126,7 +126,7 @@
             {
                 label: 'Data',
                 ref: 'date',
-                route: 'agenda',
+                route: 'schedule',
                 param: 'date',
                 type: 'date',
                 index: 3,
@@ -134,7 +134,7 @@
             {
                 label: 'Hora',
                 ref: 'hour',
-                route: 'agenda',
+                route: 'schedule',
                 param: 'hour',
                 type: 'text',
                 index: 4,
@@ -151,9 +151,11 @@
                     const query = { params: { page: page, limit: this.limit } }
                     let raw = []
                     if (this.filterParam) {
-                        this.filterParam.params.page = page
-                        this.filterParam.params.limit = this.limit
+                        // this.loader = true
+                        this.filterParam.page = page
+                        this.filterParam.limit = this.limit
                         raw = await search(this.filterParam.route, this.filterParam.params)
+                        // this.loader = false
                     } else {
                         raw = await get(this.route, query)
                     }
@@ -207,7 +209,7 @@
                 if (this.filterOption == 1) {
                     this.headers = [
                         { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicle' },
+                        { title: 'Veículo', field: 'idVehicles' },
                         { title: 'Serviço', field: 'idService' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Data', field: 'date' },
@@ -218,7 +220,7 @@
                     this.headers = [
                         { title: 'Serviço', field: 'idService' },
                         { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicle' },
+                        { title: 'Veículo', field: 'idVehicles' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Data', field: 'date' },
                         { title: 'Hora', field: 'hour' },
@@ -228,7 +230,7 @@
                     this.headers = [
                         { title: 'Data', field: 'date' },
                         { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicle' },
+                        { title: 'Veículo', field: 'idVehicles' },
                         { title: 'Serviço', field: 'idService' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Hora', field: 'hour' },
@@ -238,7 +240,7 @@
                     this.headers = [
                         { title: 'Hora', field: 'hour' },
                         { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicle' },
+                        { title: 'Veículo', field: 'idVehicles' },
                         { title: 'Serviço', field: 'idService' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Data', field: 'date' },
