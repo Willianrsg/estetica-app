@@ -13,6 +13,7 @@
           :label="filter.label"
           v-model="option"
           :inputId="filter.label"
+          @clicked="filterToggle = true"
         />
       </div>
       <div class="col-2 text-end">
@@ -116,7 +117,7 @@ export default defineComponent({
 
     async filterAll() {
       if (await this.$checkSession()) {
-        let subRoute = this.object.subRoute
+        // let subRoute = this.object.subRoute
         let obParam = this.object.param
         let obValue = this.object.paramValue
         let params = {}
@@ -136,7 +137,7 @@ export default defineComponent({
 
         if (this.inputValue != '' || this.inputValue != null) {
           const filterObject = {
-            route: `${this.object.route}/search/${subRoute}`,
+            route: `${this.object.route}`,
             params,
           }
           this.$emit('filter', filterObject)
