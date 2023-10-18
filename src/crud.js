@@ -217,7 +217,7 @@ const getFile = async (route, object) => {
 
 module.exports = {
   get,
-  getCep,
+  // getCep,
   getById,
   search,
   update,
