@@ -33,8 +33,7 @@
                     ref="zipCode"
                     divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-2"
                     label="CEP"
-                    v-mask="['#####-###']" 
-                    @input="getCep()"                 
+                    v-mask="['#####-###']"                
                 />
                 <s-input-text
                     v-model="object.street"
@@ -175,26 +174,26 @@ export default {
   
         async save() {
             if (await checkSession()) {
-            if (this.object.id) {
-                this.$cleanObject(this.object)
-    
-                const result = await update(this.route, this.$route.params.id, this.object)
-    
-                if (result.status) {
-                if (result.status != '204') {
-                    this.modalBody = result.response.data
-                    this.modalError.show()
+                if (this.object.id) {
+                    this.$cleanObject(this.object)
+        
+                    const result = await update(this.route, this.$route.params.id, this.object)
+        
+                    if (result.status) {
+                        if (result.status != '204') {
+                            this.modalBody = result.response.data
+                            this.modalError.show()
+                        } else {
+                            this.object = {}
+                            this.$store.dispatch('setShowToast', true)
+                            this.$store.dispatch('setToastMessage', 'Cliente alterado com sucesso !')
+                            this.$router.back()
+                        }
+                    } else {
+                        this.modalBody = result.response.data
+                        this.modalError.show()
+                    }
                 } else {
-                    this.object = {}
-                    this.$store.dispatch('setShowToast', true)
-                    this.$store.dispatch('setToastMessage', 'Cliente alterado com sucesso !')
-                    this.$router.back()
-                }
-                } else {
-                this.modalBody = result.response.data
-                this.modalError.show()
-                }
-            } else {
                 const result = await insert(this.route, this.object)
     
                 if (result.status) {
@@ -210,26 +209,25 @@ export default {
                     this.modalBody = result.response.data
                     this.modalError.show()
                 }
-            }
+                }
             } else {
-            this.modalNotLogged.show()
+                this.modalNotLogged.show()
             }
         },
 
-        async getCep() {
-            alert('ok')
-            // if (this.object.zipCode.length < 8) {
-            //     return
-            // }
+        // async getCep() {
+        //     if (this.object.zipCode.length < 8) {
+        //         return
+        //     }
 
-            // const cep = this.object.zipCode.replace('-', '')
+        //     const cep = this.object.zipCode.replace('-', '')
 
-            // const data = await getCep(cep)
+        //     const data = await getCep(cep)
 
-            // this.object.street = data.logradouro
-            // this.object.city = data.localidade
-            // this.object.state = data.uf
-        },
+        //     this.object.street = data.logradouro
+        //     this.object.city = data.localidade
+        //     this.object.state = data.uf
+        // },
   
         logout() {
             logout(this)

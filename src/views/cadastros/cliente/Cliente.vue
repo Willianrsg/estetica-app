@@ -204,22 +204,6 @@
             this.modalDelete = new this.$Modal(this.$refs.modalDelete.$refs.modalPattern)
             this.modalNotLogged = new this.$Modal(this.$refs.modalNotLogged.$refs.modalPattern)
         },
-    
-        // watch: {
-        //     filterOption() {
-        //     this.loadItems()
-        //     this.changeHeaders()
-        //     },
-        //     actualPage() {
-        //     this.loadItems(this.actualPage)
-        //     },
-        // },
-
-        async created() {
-            const id = this.$route.params.id
-
-            if (id) { await this.loadItem(id) }
-        },
     }
 </script>
     
