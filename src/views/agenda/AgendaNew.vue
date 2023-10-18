@@ -54,14 +54,6 @@
                     label="Data"
                     required
                 />
-                <!-- <s-input-text
-                    v-model="object.hour"
-                    ref="hour"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-1 col-xxl-1"
-                    label="Hora"
-                    v-mask="['##:##']"
-                    required
-                /> -->
                 <s-input-hour
                     v-model="object.hour"
                     ref="hour"
@@ -142,16 +134,7 @@ export default {
         modalBody: null,
         title: null,
         idClient: null,
-        item: [{label: 'agenda', value: '1'}],
-        vehicles: [],
-    
-        moneyConfig: {
-            decimal: ',',
-            thousands: '.',
-            precision: 2,
-            masked: false,
-        },
-        
+        vehicles: [],        
     }),        
   
     methods: {
@@ -160,6 +143,7 @@ export default {
                 await search(this.route, { id: id })
                     .then((res) => {
                         this.object = res.data[0]
+                        this.loadSelectVehicles();
                     })
                     .catch((err) => {
                         console.error(err)
@@ -168,6 +152,19 @@ export default {
             } else {
                 this.modalNotLogged.show()
             }
+        },
+
+        async loadSelectVehicles() {
+            const query = { params: { page: 1, limit: 10, idClient: this.object.idClient } }
+            const res = await get('vehicles', query)
+            this.vehicles = res.data
+
+            this.vehicles = res.data.map(vehicle => ({
+                value: vehicle.id,
+                label: vehicle.model,
+            }));
+
+            this.object.idVehicles = this.object.idVehicles;
         },
   
         async submitForm() {
@@ -273,7 +270,6 @@ export default {
 
     watch: {
         async idClient(){
-            // alert('ok')
             const query = { params: { page: 1, limit: 10, idClient: this.object.idClient } }
             const res = await get('vehicles', query)
             this.vehicles = res.data
