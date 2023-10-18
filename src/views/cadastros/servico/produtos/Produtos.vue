@@ -15,14 +15,15 @@
                 />
             </div>
         </div>
-        <div class="card card-body mx-2 mt-3">
+        <div class="card card-body mx-2 mt-3" v-if="object">
             <div class="row mt-3">
                 <div class="col-12">
                     <s-input-text
                         label="Serviço"
                         ref="serviceName"
                         :isDisabled="true"
-                        v-model="object.name"                    
+                        v-model="object.name" 
+                                           
                     />
                 </div>
             </div>
