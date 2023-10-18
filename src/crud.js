@@ -18,23 +18,24 @@ const get = async (route, params = {}) => {
   return result
 }
 
-const getCep = async (route) => {
-  let url = `cep/${route}`
-  console.log(url);
-  axios.defaults.withCredentials = true
+// const getCep = async (route) => {
+//   // let url = `cep/${route}`
+//   let url = `https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1/consulta/cep/${route}`
+//   console.log(url);
+//   axios.defaults.withCredentials = true
 
-  const result = await axios
-    .get(url)
-    .then((res) => {
-      return res.data
-    })
-    .catch((err) => {
-      console.error(err)
-      return []
-    })
+//   const result = await axios
+//     .get(url)
+//     .then((res) => {
+//       return res.data
+//     })
+//     .catch((err) => {
+//       console.error(err)
+//       return []
+//     })
 
-  return result
-}
+//   return result
+// }
 
 const getById = async (route, id) => {
   let url = `${baseApiUrl}/${route}/${id}`
