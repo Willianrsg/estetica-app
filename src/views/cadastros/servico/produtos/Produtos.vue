@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-6">
                 <!-- <s-title title="Produtos"  /> -->
-                <s-title title="Produtos" :breadcrumb="true" icon="bi bi-car-front-fill" />
+                <s-title title="Produtos" :breadcrumb="true" icon="bi bi-journal-plus" />
             </div>
             <div class="col-6 text-end">
                 <s-button

@@ -1,7 +1,7 @@
 <template>
     <div class="m-3">
         <!-- <s-title title="Cadastro de produto" /> -->
-        <s-title :title="title" :breadcrumb="true" icon="bi bi-calendar-week" />
+        <s-title :title="title" :breadcrumb="true" icon="bi bi-journal-plus" />
         <div class="card card-body mx-2">
             <form ref="form" @submit.prevent="submitForm" >
                 <div class="row">

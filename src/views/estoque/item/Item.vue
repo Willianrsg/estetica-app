@@ -2,7 +2,7 @@
     <div class="m-3">
         <div class="row">
             <div class="col-8">
-                <s-title title="Item" :breadcrumb="true" />
+                <s-title title="Item" :breadcrumb="true" icon="bi bi-journal-plus" />
             </div>
         </div>
         <s-input-filter
@@ -240,7 +240,7 @@
     
         watch: {
             filterOption() {
-                this.loadItems()
+                // this.loadItems()
                 this.changeHeaders()
             },
             actualPage() {

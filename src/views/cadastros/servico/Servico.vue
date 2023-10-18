@@ -2,7 +2,7 @@
     <div class="m-3">
         <div class="row">
             <div class="col-8">
-                <s-title title="Serviço" :breadcrumb="true" />
+                <s-title title="Serviço" :breadcrumb="true" icon="bi bi-wrench-adjustable-circle"/>
             </div>
         </div>
         <s-input-filter
@@ -224,11 +224,11 @@ export default {
 
     watch: {
         filterOption() {
-        this.loadItems()
-        this.changeHeaders()
+            // this.loadItems()
+            this.changeHeaders()
         },
         actualPage() {
-        this.loadItems(this.actualPage)
+            this.loadItems(this.actualPage)
         },
     },
 }

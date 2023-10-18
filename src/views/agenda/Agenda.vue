@@ -160,6 +160,7 @@
                         raw = await get(this.route, query)
                     }
                         this.items = raw.data
+                        console.log(this.items);
                         this.pages = Math.ceil(raw.total / this.limit)
                 } else {
                     this.modalNotLogged.show()
@@ -261,16 +262,16 @@
             this.modalNotLogged = new this.$Modal(this.$refs.modalNotLogged.$refs.modalPattern)
         },
     
-            watch: {
-                filterOption() {
-                    this.loadItems()
-                    this.changeHeaders()
-                },
-                actualPage() {
-                    this.loadItems(this.actualPage)
-                },
+        watch: {
+            filterOption() {
+                // this.loadItems()
+                this.changeHeaders()
             },
-        }
+            actualPage() {
+                this.loadItems(this.actualPage)
+            },
+        },
+    }
 </script>
     
 <style></style>
