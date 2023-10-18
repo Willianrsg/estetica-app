@@ -43,12 +43,12 @@
             :ref="object.ref"
             :label="object.label"
           />
-          <s-input-daterange
+          <!-- <s-input-daterange
             v-else-if="object.type == 'range'"
             v-model="inputValue"
             :ref="object.ref"
             :label="object.label"
-          />
+          /> -->
           <s-input-date v-else v-model="inputValue" :ref="object.ref" :label="object.label" />
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-xxl-3 mt-2 text-end">
@@ -185,6 +185,7 @@ export default defineComponent({
     option: {
       handler() {
         this.validateField()
+        this.filterAll()
       },
       deep: true,
     },
