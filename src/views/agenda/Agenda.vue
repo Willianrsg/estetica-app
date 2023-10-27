@@ -94,9 +94,10 @@
     data: () => ({
         route: 'schedule',
         headers: [
-            { title: 'Cliente', field: 'idClient' },
-            { title: 'Veículo', field: 'idVehicles' },
-            { title: 'Serviço', field: 'idService' },
+            { title: 'Cliente', field: 'clientName' },
+            { title: 'Veículo', field: 'vehiclesModel' },
+            // { title: 'Serviço', field: 'idService' },
+            { title: 'Nome Serviço', field: 'serviceName' },
             // { title: 'Preço', field: 'price' },
             { title: 'Data', field: 'date' },
             { title: 'Hora', field: 'hour' },
@@ -114,7 +115,7 @@
         limit: 10,
     
         filterObject: [
-            { label: 'Cliente', ref: 'idClient', route: 'schedule',  param: 'idClient', type: 'text', index: 1 },
+            { label: 'Cliente', ref: 'clientName', route: 'schedule',  param: 'idClient', type: 'text', index: 1 },
             {
                 label: 'Serviço',
                 ref: 'idService',
@@ -160,7 +161,6 @@
                         raw = await get(this.route, query)
                     }
                         this.items = raw.data
-                        console.log(this.items);
                         this.pages = Math.ceil(raw.total / this.limit)
                 } else {
                     this.modalNotLogged.show()
