@@ -94,7 +94,7 @@
         data: () => ({
             route: 'serviceProduct',
             headers: [
-                { title: 'Produto', field: 'idProduct' },
+                { title: 'Produto', field: 'productName' },
                 { title: 'Quantidade', field: 'quantity' },
                 { title: 'Medida', field: 'measure' },
                 { title: 'Ações', field: 'actions' },
@@ -163,6 +163,7 @@
                         raw = await get(this.route, query)
                     }
                     this.items = raw.data
+                    console.log(this.items);
                     this.pages = Math.ceil(raw.total / this.limit)
                 } else {
                     this.modalNotLogged.show()
