@@ -11,7 +11,6 @@
             @clear="loadItems"
             name="filterScreen"
             :filters="filterObject"
-            v-if="!zoom"
         />
         <div class="card card-body mx-2">
             <div class="row">
