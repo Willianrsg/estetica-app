@@ -136,7 +136,7 @@
                 ref: 'hour',
                 route: 'schedule',
                 param: 'hour',
-                type: 'text',
+                type: 'hour',
                 index: 4,
             },
         ],
