@@ -86,7 +86,7 @@
     // import { Modal } from 'bootstrap'
     
     export default {
-        name: 'veiculos',
+        name: 'cliente',
     
         data: () => ({
             route: 'client',
