@@ -30,6 +30,11 @@ const routes = [
     name: 'agendaUpdate',
     component: () => import('@/views/agenda/AgendaNew.vue')
   },
+  {
+    path: '/agenda/:idAgenda/pagamento',
+    name: 'pagamento',
+    component: () => import('@/views/agenda/pagamento/Pagamento.vue')
+  },
 
   /* ########## CADASTROS ######## */
   {
@@ -210,6 +215,11 @@ const routes = [
     path: '/meu_perfil',
     name: 'myProfile',
     component: () => import('@/views/Perfil.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/Dashboard.vue'),
   },
 ]
 

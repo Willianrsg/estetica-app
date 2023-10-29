@@ -49,6 +49,13 @@
                         </template>
                         <template v-slot:actions="{ item }">
                             <div class="text-center">
+                                <s-tooltip label="Pagamento">
+                                    <i
+                                        class="bi bi-currency-dollar text-secondary px-1"
+                                        style="cursor: pointer"
+                                        @click="details(item.id)"
+                                    ></i>
+                                </s-tooltip>
                                 <s-tooltip label="Editar">
                                     <i
                                         class="bi bi-pencil-fill text-secondary px-1"
@@ -96,9 +103,7 @@
         headers: [
             { title: 'Cliente', field: 'clientName' },
             { title: 'Veículo', field: 'vehiclesModel' },
-            // { title: 'Serviço', field: 'idService' },
             { title: 'Nome Serviço', field: 'serviceName' },
-            // { title: 'Preço', field: 'price' },
             { title: 'Data', field: 'date' },
             { title: 'Hora', field: 'hour' },
             { title: 'Ações', field: 'actions' },
@@ -209,9 +214,9 @@
             changeHeaders() {
                 if (this.filterOption == 1) {
                     this.headers = [
-                        { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicles' },
-                        { title: 'Serviço', field: 'idService' },
+                        { title: 'Cliente', field: 'clientName' },
+                        { title: 'Veículo', field: 'vehiclesModel' },
+                        { title: 'Serviço', field: 'serviceName' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Data', field: 'date' },
                         { title: 'Hora', field: 'hour' },
@@ -219,9 +224,9 @@
                     ]
                 } else if (this.filterOption == 2) {
                     this.headers = [
-                        { title: 'Serviço', field: 'idService' },
-                        { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicles' },
+                        { title: 'Serviço', field: 'serviceName' },
+                        { title: 'Cliente', field: 'clientName' },
+                        { title: 'Veículo', field: 'vehiclesModel' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Data', field: 'date' },
                         { title: 'Hora', field: 'hour' },
@@ -230,9 +235,9 @@
                 } else if (this.filterOption == 3) {
                     this.headers = [
                         { title: 'Data', field: 'date' },
-                        { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicles' },
-                        { title: 'Serviço', field: 'idService' },
+                        { title: 'Cliente', field: 'clientName' },
+                        { title: 'Veículo', field: 'vehiclesModel' },
+                        { title: 'Serviço', field: 'serviceName' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Hora', field: 'hour' },
                         { title: 'Ações', field: 'actions' },
@@ -240,14 +245,23 @@
                 } else {
                     this.headers = [
                         { title: 'Hora', field: 'hour' },
-                        { title: 'Cliente', field: 'idClient' },
-                        { title: 'Veículo', field: 'idVehicles' },
-                        { title: 'Serviço', field: 'idService' },
+                        { title: 'Cliente', field: 'clientName' },
+                        { title: 'Veículo', field: 'vehiclesModel' },
+                        { title: 'Serviço', field: 'serviceName' },
                         { title: 'Preço', field: 'price' },
                         { title: 'Data', field: 'date' },
                         { title: 'Ações', field: 'actions' },
                     ]
                 }
+            },
+
+            details(id) {
+                const route = {
+                    name: 'pagamento',
+                    params: { idAgenda: id },
+                }
+
+                this.$router.push(route)
             },
     
             logout() {
