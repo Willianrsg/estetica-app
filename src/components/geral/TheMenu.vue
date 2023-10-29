@@ -51,6 +51,13 @@ export default {
   data: () => ({
     menuList: [
       {
+        code: 'dashboard',
+        title: 'Dashboard',
+        status: false,
+        icon: 'bi bi-pie-chart-fill',
+        children: []
+      },
+      {
         code: null,
         title: 'Agenda',
         status: false,
