@@ -2,8 +2,7 @@
     <div class="m-3">
         <div class="row">
             <div class="col-6">
-                <s-title title="Pagamento"  />
-                <!-- <s-title title="Pagamento" :breadcrumb="true" icon="bi bi-currency-dollar" /> -->
+                <s-title title="Pagamento" :breadcrumb="true" icon="bi bi-currency-dollar" />
             </div>
             <div class="col-6 text-end">
                 <s-button
@@ -15,51 +14,8 @@
                 />
             </div>
         </div>
-
-        <!-- <div class="card card-body mx-2 mt-3" v-if="object">
-            <div class="row mt-3">
-                <s-input-text
-                    label="COD"
-                    divClass="col-12 col-xs-12 col-sm-2 col-md-2 col-xxl-2"
-                    :isDisabled="true"
-                    v-model="object.id"                                            
-                />
-                <s-input-text
-                    label="Cliente"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-10 col-xxl-10"
-                    :isDisabled="true"
-                    v-model="object.clientName"                                            
-                />
-                <s-input-text
-                    label="Veículo"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-4 col-xxl-4"
-                    :isDisabled="true"
-                    v-model="object.vehiclesModel"                                           
-                />
-                <s-input-text
-                    label="Serviço"
-                    divClass="col-12 col-xs-12 col-sm-12 col-md-4 col-xxl-4"
-                    :isDisabled="true"
-                    v-model="object.serviceName"                                           
-                />
-                <s-input-text
-                    label="Data"
-                    divClass="col-12 col-xs-12 col-sm-2 col-md-2 col-xxl-2"
-                    :isDisabled="true"
-                    v-model="object.date"                                           
-                />
-                <s-input-text
-                    label="Hora"
-                    divClass="col-12 col-xs-12 col-sm-2 col-md-2 col-xxl-2"
-                    :isDisabled="true"
-                    v-model="object.hour"                                            
-                />
-            </div>
-            <hr class="border border-1"/>            
         
-        </div> -->
-        
-        <div class="row mt-3">
+        <div class="row mt-1">
 
             <!-- CARD DE DADOS -->
             <div class="col-6">
@@ -115,77 +71,93 @@
 
                             <!-- DADOS CLIENTE -->
                             <div class="row mt-2" v-if="client">
-                                <!-- <div id="cliente" v-if="client"> -->
-                                    <s-input-text
-                                        label="COD"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-2"
-                                        :isDisabled="true"
-                                        v-model="dataClient.id"                                            
-                                    />
-                                    <s-input-text
-                                        label="Cliente"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-10"
-                                        :isDisabled="true"
-                                        v-model="dataClient.name"                                            
-                                    />
-                                    <s-input-text
-                                        label="Telefone"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-6"
-                                        :isDisabled="true"
-                                        v-model="dataClient.phone"                                       
-                                    />
-                                    <s-input-text
-                                        label="CPF/CNPJ"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-6"
-                                        :isDisabled="true"
-                                        v-model="dataClient.cpfCnpj"                                            
-                                    />
-                                    <s-input-text
-                                        label="Endereço"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-10"
-                                        :isDisabled="true"
-                                        v-model="dataClient.street"                                            
-                                    />
-                                    <s-input-text
-                                        label="N°"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-2"
-                                        :isDisabled="true"
-                                        v-model="dataClient.number"                                            
-                                    />
-                                    <s-input-text
-                                        label="Cidade"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-10"
-                                        :isDisabled="true"
-                                        v-model="dataClient.city"                                            
-                                    />
-                                    <s-input-text
-                                        label="UF"
-                                        divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-2"
-                                        :isDisabled="true"
-                                        v-model="dataClient.state"                                            
-                                    />
-                                <!-- </div> -->
+                                <s-input-text
+                                    label="COD"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-2"
+                                    :isDisabled="true"
+                                    v-model="object.idClient"                                            
+                                />
+                                <s-input-text
+                                    label="Cliente"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-10"
+                                    :isDisabled="true"
+                                    v-model="object.nameClient"                                            
+                                />
+                                <s-input-text
+                                    label="Telefone"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-6"
+                                    :isDisabled="true"
+                                    v-model="object.phoneClient"                                       
+                                />
+                                <s-input-text
+                                    label="CPF/CNPJ"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-6"
+                                    :isDisabled="true"
+                                    v-model="object.cpfCnpjClient"                                            
+                                />
+                                <s-input-text
+                                    label="Endereço"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-10"
+                                    :isDisabled="true"
+                                    v-model="object.streetClient"                                            
+                                />
+                                <s-input-text
+                                    label="N°"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-2"
+                                    :isDisabled="true"
+                                    v-model="object.numberClient"                                            
+                                />
+                                <s-input-text
+                                    label="Cidade"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-10"
+                                    :isDisabled="true"
+                                    v-model="object.cityClient"                                            
+                                />
+                                <s-input-text
+                                    label="UF"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-2"
+                                    :isDisabled="true"
+                                    v-model="object.ufClient"                                            
+                                />
                             </div>
 
                             <!-- DADOS SERVIÇO -->
-                            <div id="servico" v-if="service">
+                            <div class="row mt-2" v-if="service">
                                 <s-input-text
                                     label="Serviço"
-                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-12"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
                                     :isDisabled="true"
-                                    v-model="dataService.id"                                            
+                                    v-model="object.idService"                                            
                                 />
                                 <s-input-text
                                     label="Serviço"
-                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-12"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-7 col-xxl-7"
                                     :isDisabled="true"
-                                    v-model="dataService.name"                                            
+                                    v-model="object.nameService"                                            
                                 />
                                 <s-input-text
                                     label="Preço"
-                                    divClass="col-12 col-xs-12 col-sm-12 col-md-12 col-xxl-12"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-3"
                                     :isDisabled="true"
-                                    v-model="dataService.price"                                            
+                                    v-model="object.priceService"                                            
+                                />
+                                <s-input-text
+                                    label="Veículo"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-7"
+                                    :isDisabled="true"
+                                    v-model="object.modelVehicles"                                            
+                                />
+                                <s-input-text
+                                    label="Placa"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-3 col-xxl-3"
+                                    :isDisabled="true"
+                                    v-model="object.licensePlateVehicles"                                            
+                                />
+                                <s-input-text
+                                    label="Frota"
+                                    divClass="col-12 col-xs-12 col-sm-12 col-md-2 col-xxl-2"
+                                    :isDisabled="true"
+                                    v-model="object.fleetVehicles"                                            
                                 />
                             </div>
 
@@ -220,6 +192,31 @@
                     </div>
                     <TheLoader v-if="loader" />
                 </div>
+
+                <!-- DIV BOTÕES  -->
+                <div class="col-12 mt-2">
+                    <div class="card card-body mx-2 mt-3" v-if="object">
+                        <div class="row mt-1">
+                            <span>Comprovante</span>
+                            <hr class="border border-1"/>
+                            <div class="col-12 mt-3 text-end">
+                                <!-- <s-button
+                                    type="button"
+                                    color="primary"
+                                    label="Finalizar"
+                                    icon="bi bi-cart-check"
+                                /> -->
+                                <s-button
+                                    type="button"
+                                    color="primary"
+                                    label="Imprimir"
+                                    icon="bi bi-printer"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- CARD INFO PAGAMENTO -->
@@ -240,9 +237,38 @@
                         />
                     </div>
                 </div>
-                <div class="card card-body mx-2 mt-3" v-if="object">
-                    <div class="row mt-2">
-                        <!-- <span>teste</span> -->
+                <div class="card card-body mx-2 mt-3">
+                    <div class="row mt-1">
+                        <span>Formas de Pagamento</span>
+                        <div class="col-6">
+                            <div class="card pag card-body mx-2 mt-3" @click="detailsPix()">
+                                <i class="fa-brands fa-pix"></i>
+                                <span>PIX</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card pag card-body mx-2 mt-3" @click="detailsMoney()">
+                                <span>Dinheiro</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card pag card-body mx-2 mt-3" @click="detailsCard()">
+                                <span>Cartão</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card pag card-body mx-2 mt-3" @click="detailsCredit()">
+                                <span>Cartão Parcelado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border border-1"/>
+
+                    <!-- PAG. DINHEIRO -->
+                    <div class="row mt-2" v-if="money">
+                        <h2>Dinheiro</h2>
+                        <hr class="border border-1"/>
                         <s-input-text
                             label="Sub Total"
                             v-money="moneyConfig"
@@ -279,32 +305,159 @@
                             :isDisabled="true"
                         />
                     </div>
-                    <hr class="border border-1"/>
-                    <div class="row mt-1">
-                        <span>Formas de Pagamento</span>
-                        <div class="col-6">
-                            <div class="card pag card-body mx-2 mt-3" v-if="object">
-                                <i class="fa-brands fa-pix"></i>
-                                <span>PIX</span>
+
+                    <!-- <hr class="border border-1"/> -->
+
+                    <!-- PAG. CRÉDITO  -->
+                    <div class="row mt-2" v-if="credito">
+                        <h2>Cartão Parcelado</h2>
+                        <hr class="border border-1"/>
+                        <s-input-text
+                            label="Sub Total"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="dataService.price"
+                            :isDisabled="true"
+                        />
+                        <s-input-text
+                            label="Desconto"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="desc"
+                            @input="calcularTotal()"
+                        />
+                        <s-input-text
+                            label="Total"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="total"
+                            :isDisabled="true"
+                        />
+                        <s-select
+                            label="Parcelas"
+                            :items="installment"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="parcelas"
+                        />
+                        <!-- <s-input-text
+                            label="Troco"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-6 col-xxl-6"
+                            v-model="troco"
+                            :isDisabled="true"
+                        /> -->
+                    </div>
+
+                    <!-- PAG. PIX  -->
+                    <div class="row mt-2" v-if="pix">
+                        <h2>PIX</h2>
+                        <hr class="border border-1"/>
+                        <s-input-text
+                            label="Sub Total"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="dataService.price"
+                            isDisabled="true"
+                        />
+                        <s-input-text
+                            label="Desconto"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="desc"
+                            @input="calcularTotal()"
+                        />
+                        <s-input-text
+                            label="Total"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="total"
+                            :isDisabled="true"
+                        />
+                        <s-input-text
+                            label="Total Recebido no PIX"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="recDin"
+                        />
+                        <!-- <s-input-text
+                            label="Troco"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-6 col-xxl-6"
+                            v-model="troco"
+                            :isDisabled="true"
+                        /> -->
+                    </div>
+
+                    <!-- PAG. CARTÃO  -->
+                    <div class="row mt-2" v-if="card">
+                        <h2>Cartão</h2>
+                        <hr class="border border-1"/>
+                        <s-input-text
+                            label="Sub Total"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="dataService.price"
+                            isDisabled="true"
+                        />
+                        <s-input-text
+                            label="Desconto"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="desc"
+                            @input="calcularTotal()"
+                        />
+                        <s-input-text
+                            label="Total"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="total"
+                            :isDisabled="true"
+                        />
+                        <s-select
+                            label="Tipo"
+                            :items="card" 
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-3 col-xxl-3"
+                            v-model="card"
+                        />
+                        <!-- <s-input-text
+                            label="Troco"
+                            v-money="moneyConfig"
+                            divClass="col-12 col-xs-12 col-sm-2 col-md-6 col-xxl-6"
+                            v-model="troco"
+                            :isDisabled="true"
+                        /> -->
+                    </div>
+
+                    <div v-if="modo">
+                        <hr class="border border-1"/>
+                        <div class="row mt-1">
+                            <div class="col-4">
+                                <h5 >Modo de pagamento: </h5><span>{{ modo }}</span>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card pag card-body mx-2 mt-3" v-if="object">
-                                <span>Dinheiro</span>
+                            <div class="col-4 text-center">
+                                <h5 >Parcelas: </h5><!-- <span v-if="parcelas">{{ parcelas }}</span> -->
+                                <span >{{ '1' }}</span>
+                                <template v-if="valorParcela">
+                                    <div>
+                                        <h5>Valor da Parcela:</h5>
+                                        <span>R$ {{ valorParcela }}</span>
+                                    </div>
+                                </template>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card pag card-body mx-2 mt-3" v-if="object">
-                                <span>Cartão</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card pag card-body mx-2 mt-3" v-if="object">
-                                <span>Cartão Parcelado</span>
+                            <div class="col-4 text-end">
+                                <h5>Total </h5><span>R$ {{ total }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    
+
+
+
+
+
+
+                    <div class="row mt-1">
+                        <hr class="border border-1"/>
                         <div class="col-12 mt-3 text-end">
                             <s-button
                                 type="button"
@@ -312,19 +465,16 @@
                                 label="Finalizar"
                                 icon="bi bi-cart-check"
                             />
-                        <!-- </div>
-                        <div class="col-6 mt-3 text-end"> -->
-                            <s-button
+                            <!-- <s-button
                                 type="button"
                                 color="primary"
                                 label="Imprimir"
                                 icon="bi bi-printer"
-                            />
+                            /> -->
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>            
         </div>
         
         
@@ -337,9 +487,10 @@
     import { logout } from '@/rule/functions.js'
     import { search } from '@/crud.js'
     import TheLoader from '@/components/efeito/TheLoader.vue'
+import moment from 'moment'
     
     export default {
-        name: 'pagamento',
+        name: 'agendaChildren',
     
         data: () => ({
             route: 'serviceProduct',
@@ -348,10 +499,18 @@
             service: false,
             product: false,
 
+            credito: false,
+            money: false,
+            pix: false,
+            card: false,
+
             total: null,
             desc: null,
             recDin: null,
             troco: null,
+            modo: null,
+            parcelas: null,
+            valorParcela: null,
 
             loader: false,
 
@@ -365,11 +524,24 @@
             modalNotLogged: null,
 
             moneyConfig: {
-            decimal: ',',
-            thousands: '.',
-            precision: 2,
-            masked: false,
-        },
+                decimal: ',',
+                thousands: '.',
+                precision: 2,
+                masked: false,
+            },
+
+            card: [
+                {label: 'Débito', value: 'Débito'},
+                {label: 'Crédito', value: 'Crédito'},
+            ],
+
+            installment: [
+                {label: '2x', value: '2'},
+                {label: '3x', value: '3'},
+                {label: '4x', value: '4'},
+                {label: '5x', value: '5'},
+                {label: '6x', value: '6'},
+            ]
         }),
 
         computed: {
@@ -392,24 +564,39 @@
                     const valorTotal = parseFloat(this.total.replace(',', '.'))
 
                     if (!isNaN(valorRecebido) && !isNaN(valorTotal)) {
+                        console.log(valorRecebido);
                         return (valorRecebido - valorTotal).toFixed(2).replace('.', ',')
                     }
                 }
-                return null
+                return "0,00"
             }
         },
 
         methods: {
+            calcularValorParcela() {
+                if (this.parcelas) {
+                    const total = parseFloat(this.total.replace(',', '.'));
+                    const numParcelas = parseInt(this.parcelas);
+                    const desconto = parseFloat(this.desc.replace(',', '.'));
+
+                    if (!isNaN(total) && !isNaN(numParcelas) && numParcelas > 0) {
+                        const valorComDesconto = total - desconto;
+                        this.valorParcela = (valorComDesconto / numParcelas).toFixed(2).replace('.', ',');
+                    }
+                }
+            },
+
             async loadItem() {
                 if (await this.$checkSession()) {
                     let params = {}
                     params.id = this.$route.params.idAgenda
     
-                    await search(`schedule`, params)
+                    await search(`payment`, params)
                         .then((res) => {
                         this.object = res.data[0]
-                        // this.object.date = $formatDate(this.object.date)
-                        console.log('AGENDA');
+                        this.object.date = moment(this.object.date).format('DD/MM/YYYY')
+                        this.object.priceService = parseFloat(this.object.priceService).toFixed(2).replace('.',',')
+                        console.log('DADOS: ');
                         console.log(this.object);
                     })
                     .catch((err) => {
@@ -419,25 +606,6 @@
                 }
             },
 
-            // async loadItems(page = 1) {
-            //     if (await this.$checkSession()) {
-            //         const query = { params: { page: page, limit: this.limit, idService: this.$route.params.idService } }
-            //         let raw = []
-            //         if (this.filterParam) {
-            //             this.filterParam.params.page = page
-            //             this.filterParam.params.limit = this.limit
-            //             raw = await search(this.filterParam.route, this.filterParam.params)
-            //         } else {
-            //             raw = await get(this.route, query)
-            //         }
-            //         this.items = raw.data
-            //         console.log(this.items);
-            //         this.pages = Math.ceil(raw.total / this.limit)
-            //     } else {
-            //         this.modalNotLogged.show()
-            //     }
-            // },
-
             async loadClient() {
                 let params = {}
                 params.id = this.object.idClient
@@ -445,12 +613,9 @@
                 await search(`client`, params)
                     .then((res) => {
                         this.dataClient = res.data[0]
-                        console.log('Cliente: ');
-                        console.log(this.dataClient);
                     })
                     .catch((err) => {
                         console.log(err)
-                        // this.$router.go(-2)
                     })
             },
             
@@ -462,9 +627,7 @@
                     .then((res) => {
                         this.dataService = res.data[0]
                         this.dataService.price = parseFloat(this.dataService.price).toFixed(2)
-                        this.total = parseFloat(this.dataService.price).toFixed(2)
-                        console.log('SERVIÇO: ');
-                        console.log(this.dataService);
+                        // this.total = parseFloat(this.dataService.price).toFixed(2)
                     })
                     .catch((err) => {
                         console.log(err)
@@ -473,12 +636,11 @@
 
             async loadProduct() {
                 let params = {}
-                params.id = await this.dataService.id
+                params.id =  this.dataService.id
 
                 await search(`serviceProduct`, params)
                     .then((res) => {
                         this.dataProduct = res/* .data[0] */
-                        console.log('PRODUTO: ');
                         console.log(this.dataProduct);
                     })
                     .catch((err) => {
@@ -505,57 +667,42 @@
                 this.service = false
             },
 
-            calcularTotal() {
-                if (this.desc) {
-                    const desconto = parseFloat(this.desc.replace(',', '.'))
-
-                    if (!isNaN(desconto)) {
-                        const precoServico = parseFloat(this.dataService.price.replace(',', '.'))
-                        const subTotal = precoServico
-                        const total = subTotal - desconto
-                        this.total = total.toFixed(2).replace('.', ',')
-                    }
-                }
+            detailsCredit(){
+                this.credito = true
+                this.money = false
+                this.pix = false
+                this.card = false
+                this.modo = 'Parcelado'
+                // this.parcelas = null
             },
 
-            calcularTroco() {
-                if (this.recDin) {
-                    const valorRecebido = parseFloat(this.recDin.replace(',', '.'));
-                    const valorTotal = parseFloat(this.total.replace(',', '.')); // Certifique-se de que this.total esteja definido
-
-                    if (!isNaN(valorRecebido) && !isNaN(valorTotal)) {
-                        this.troco = (valorRecebido - valorTotal).toFixed(2).replace('.', ',');
-                    }
-                }
+            detailsMoney(){
+                this.credito = false
+                this.money = true
+                this.pix = false
+                this.card = false
+                this.modo = 'Dinheiro'
+                this.parcelas = null
+            },
+            
+            detailsPix(){
+                this.credito = false
+                this.money = false
+                this.pix = true
+                this.card = false
+                this.modo = 'PIX'
+                this.parcelas = null
+            },
+            
+            detailsCard(){
+                this.credito = false
+                this.money = false
+                this.pix = false
+                this.card = true
+                this.modo = 'Cartão'
+                this.parcelas = null
             },
 
-    
-            // async edit(id) {
-            //     const route = {
-            //         name: 'produtoUpdate',
-            //         params: { id: id },
-            //     }
-    
-            //     this.$router.push(route)
-            // },
-    
-            // async remove() {
-            //     if (await this.$checkSession()) {
-            //         await remove(this.route, this.choosed.id)
-    
-            //         this.$store.dispatch('setShowToast', true)
-            //         this.$store.dispatch('setToastMessage', 'Veículo excluído com sucesso !')
-            //         this.loadItems()
-            //     } else {
-            //         this.modalNotLogged.show()
-            //     }
-            // },
-    
-            // removeConfirm(item) {
-            //     this.choosed = item
-            //     this.modalDelete.show()
-            // },
-    
             logout() {
                 logout(this)
             },
@@ -566,14 +713,17 @@
             await this.loadClient()
             await this.loadService()
             await this.loadProduct()
-            // await this.loadItems()
         },
     
-        async mounted() {
-            // await this.loadItems()
-    
+        async mounted() {    
             this.modalDelete = new this.$Modal(this.$refs.modalDelete.$refs.modalPattern)
             this.modalNotLogged = new this.$Modal(this.$refs.modalNotLogged.$refs.modalPattern)
+        },
+
+        watch: {
+            parcelas: 'calcularValorParcela',
+            total: 'calcularValorParcela',
+            desc: 'calcularValorParcela',
         },
     }
 </script>
@@ -587,11 +737,12 @@
         background: #555555;
     }
     .pag {
-        background: #cacaf7;
+        background: #555555;
+        color: #ffffff;
     }
     .pag:hover {
         cursor: pointer;
-        background: #b4b4f7;
+        background: #2a2a2a;
     }
 </style>
     
