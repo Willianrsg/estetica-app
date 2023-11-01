@@ -46,6 +46,22 @@ export function getRouteName(route) {
       UpdateName: 'Edição de Ageda',
       UpdatePath: 'agendaUpdate',
     },
+    pagamento: {
+      parent: 'Agenda',
+      name: 'Pagamento',
+      path: 'pagamento',
+      // childrenName: 'Cadastro de Agenda',
+      // childrenPath: 'agendaNew',
+      // UpdateName: 'Edição de Ageda',
+      // UpdatePath: 'agendaUpdate',
+    },
+    agendaChildren: {
+      parent: 'Agenda',
+      name: 'pagamento',
+      path: 'agendaChildren',
+      childrenName: '',
+      childrenPath: ''
+    },
     user: {
       parent: 'Administração',
       name: 'Usuários',
