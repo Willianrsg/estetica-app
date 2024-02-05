@@ -5,6 +5,7 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import router from './router'
 import * as Filtros from './plugins/filter'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 import store from './store'
 import axios from 'axios'
@@ -27,7 +28,7 @@ import TheBreadcrumb from '@/components/geral/TheBreadcrumb.vue'
 import TheChip from '@/components/geral/TheChip.vue'
 import TheLabel from '@/components/geral/TheLabel.vue'
 import TheLabelRequired from '@/components/geral/TheLabelRequired.vue'
-import TheMenu from '@/components/geral/TheMenu.vue'
+// import TheMenu from '@/components/geral/TheMenu.vue'
 import TheSideMenu from '@/components/geral/TheSideMenu.vue'
 import TheStatusCircle from '@/components/geral/TheStatusCircle.vue'
 import TheTitle from '@/components/geral/TheTitle.vue'
@@ -100,7 +101,7 @@ app
   .component('s-chip', TheChip)
   .component('s-label', TheLabel)
   .component('s-label-required', TheLabelRequired)
-  .component('s-menu', TheMenu)
+  // .component('s-menu', TheMenu)
   .component('s-sidemenu', TheSideMenu)
   .component('s-status-circle', TheStatusCircle)
   .component('s-title', TheTitle)
