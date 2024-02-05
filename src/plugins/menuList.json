@@ -1,0 +1,100 @@
+{
+    "menuList": [
+        {
+          "code": "dashboard",
+          "title": "Dashboard",
+          "status": false,
+          "icon": "bi bi-pie-chart-fill",
+          "children": []
+        },
+        {
+          "code": null,
+          "title": "Agenda",
+          "status": false,
+          "icon": "bi bi-clock-fill",
+          "children": [
+            {
+              "code": "agenda",
+              "title": "Agenda",
+              "status": false,
+              "icon": "bi bi-circle",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": null,
+          "title": "Cadastros",
+          "status": false,
+          "icon": "bi bi-pencil-square",
+          "children": [
+            {
+              "code": "cliente",
+              "title": "Clientes",
+              "status": false,
+              "icon": "bi bi-circle",
+              "children": []
+            },
+            {
+              "code": "servico",
+              "title": "Serviço",
+              "status": false,
+              "icon": "bi bi-circle",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": null,
+          "title": "Estoque",
+          "status": false,
+          "icon": "bi bi-box2-fill",
+          "children": [
+            {
+              "code": "item",
+              "title": "Item",
+              "status": false,
+              "icon": "bi bi-circle",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": null,
+          "title": "Administração",
+          "status": false,
+          "icon": "bi bi-gear-fill",
+          "children": [
+            {
+              "code": "group",
+              "title": "Grupos",
+              "status": false,
+              "icon": "bi bi-circle",
+              "child": "acl",
+              "children": []
+            },
+            {
+              "code": "screen",
+              "title": "Programas",
+              "status": false,
+              "icon": "bi bi-circle",
+              "children": []
+            },
+            {
+              "code": "user",
+              "title": "Usuários",
+              "icon": "bi bi-circle",
+              "child": "userGroup",
+              "status": false
+            }
+          ]
+        },
+        {
+          "code": "myProfile",
+          "title": "Meu Perfil",
+          "status": false,
+          "icon": "bi-person-fill",
+          "children": []
+        }
+    ]
+}

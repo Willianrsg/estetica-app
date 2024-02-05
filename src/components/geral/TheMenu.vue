@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <nav class="navbar navbar-expand-lg text-white d-flex justify-content-between" v-if="logged">
     <div>
       <i class="bi bi-list icon_action ps-3" @click="toggleSidebar"></i>
@@ -274,4 +274,4 @@ export default {
     cursor: pointer;
   }
 }
-</style>
+</style> -->
